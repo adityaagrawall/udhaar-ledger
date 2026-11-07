@@ -22,7 +22,9 @@ Udhaar Ledger is that layer. It reads invoices and receipts from Excel or Tally 
 
 ## Try it
 
-**Live demo:** open the app and click **Explore the live demo**. It signs you into a shared, read-only account with synthetic data for a fictional distributor. No sign-up needed. *(Link added after deployment.)*
+**Live demo: https://udhaar-ledger-sigma.vercel.app**. Click **Explore the live demo**. It signs you into a shared, read-only account with synthetic data for a fictional distributor. No sign-up needed.
+
+The API runs on Render's free plan, so the very first request after it has been idle can take about a minute while it wakes up. API health: https://udhaar-ledger-api.onrender.com/health
 
 ## What makes it different
 
