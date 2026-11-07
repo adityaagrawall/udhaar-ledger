@@ -1,0 +1,130 @@
+{
+  "collectiq_production": {
+    "classification": [
+      {
+        "Dataset": "CollectIQ Production",
+        "Model": "Zero-Rule (Baseline)",
+        "Accuracy": "51.43%",
+        "Precision": "51.43%",
+        "Recall": "100.00%",
+        "F1-Score": "0.6792",
+        "ROC-AUC": "0.5000",
+        "PR-AUC": "0.5143",
+        "Confusion Matrix [TN, FP, FN, TP]": "[0, 51, 0, 54]"
+      },
+      {
+        "Dataset": "CollectIQ Production",
+        "Model": "Logistic Regression",
+        "Accuracy": "64.76%",
+        "Precision": "86.96%",
+        "Recall": "37.04%",
+        "F1-Score": "0.5195",
+        "ROC-AUC": "0.6601",
+        "PR-AUC": "0.7279",
+        "Confusion Matrix [TN, FP, FN, TP]": "[48, 3, 34, 20]"
+      },
+      {
+        "Dataset": "CollectIQ Production",
+        "Model": "Random Forest",
+        "Accuracy": "65.71%",
+        "Precision": "90.91%",
+        "Recall": "37.04%",
+        "F1-Score": "0.5263",
+        "ROC-AUC": "0.6667",
+        "PR-AUC": "0.7358",
+        "Confusion Matrix [TN, FP, FN, TP]": "[49, 2, 34, 20]"
+      },
+      {
+        "Dataset": "CollectIQ Production",
+        "Model": "HistGradientBoosting",
+        "Accuracy": "56.19%",
+        "Precision": "59.09%",
+        "Recall": "48.15%",
+        "F1-Score": "0.5306",
+        "ROC-AUC": "0.6440",
+        "PR-AUC": "0.7178",
+        "Confusion Matrix [TN, FP, FN, TP]": "[33, 18, 28, 26]"
+      },
+      {
+        "Dataset": "CollectIQ Production",
+        "Model": "Gradient Boosting (GBM)",
+        "Accuracy": "61.90%",
+        "Precision": "62.50%",
+        "Recall": "64.81%",
+        "F1-Score": "0.6364",
+        "ROC-AUC": "0.6529",
+        "PR-AUC": "0.7404",
+        "Confusion Matrix [TN, FP, FN, TP]": "[30, 21, 19, 35]"
+      }
+    ],
+    "regression": {
+      "mae": 3.13,
+      "base_mae": 7.75,
+      "error_reduction": 59.6
+    }
+  },
+  "ibm_kaggle_benchmark": {
+    "classification": [
+      {
+        "Dataset": "IBM Accounts Receivable (Kaggle)",
+        "Model": "Zero-Rule (Baseline)",
+        "Accuracy": "71.66%",
+        "Precision": "0.00%",
+        "Recall": "0.00%",
+        "F1-Score": "0.0000",
+        "ROC-AUC": "0.5000",
+        "PR-AUC": "0.2834",
+        "Confusion Matrix [TN, FP, FN, TP]": "[354, 0, 140, 0]"
+      },
+      {
+        "Dataset": "IBM Accounts Receivable (Kaggle)",
+        "Model": "Logistic Regression",
+        "Accuracy": "84.01%",
+        "Precision": "68.48%",
+        "Recall": "80.71%",
+        "F1-Score": "0.7410",
+        "ROC-AUC": "0.9015",
+        "PR-AUC": "0.7694",
+        "Confusion Matrix [TN, FP, FN, TP]": "[302, 52, 27, 113]"
+      },
+      {
+        "Dataset": "IBM Accounts Receivable (Kaggle)",
+        "Model": "Random Forest (Tuned)",
+        "Accuracy": "83.81%",
+        "Precision": "68.07%",
+        "Recall": "80.71%",
+        "F1-Score": "0.7386",
+        "ROC-AUC": "0.8839",
+        "PR-AUC": "0.7629",
+        "Confusion Matrix [TN, FP, FN, TP]": "[301, 53, 27, 113]"
+      },
+      {
+        "Dataset": "IBM Accounts Receivable (Kaggle)",
+        "Model": "HistGradientBoosting",
+        "Accuracy": "82.79%",
+        "Precision": "66.47%",
+        "Recall": "79.29%",
+        "F1-Score": "0.7231",
+        "ROC-AUC": "0.8907",
+        "PR-AUC": "0.7619",
+        "Confusion Matrix [TN, FP, FN, TP]": "[298, 56, 29, 111]"
+      },
+      {
+        "Dataset": "IBM Accounts Receivable (Kaggle)",
+        "Model": "Gradient Boosting (GBM)",
+        "Accuracy": "80.16%",
+        "Precision": "65.22%",
+        "Recall": "64.29%",
+        "F1-Score": "0.6475",
+        "ROC-AUC": "0.8542",
+        "PR-AUC": "0.7215",
+        "Confusion Matrix [TN, FP, FN, TP]": "[306, 48, 50, 90]"
+      }
+    ],
+    "regression": {
+      "mae": 2.04,
+      "base_mae": 4.15,
+      "error_reduction": 51.0
+    }
+  }
+}

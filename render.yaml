@@ -1,0 +1,30 @@
+# Render Blueprint: the API. The database lives on Neon; the frontend on Vercel.
+services:
+  - type: web
+    name: udhaar-ledger-api
+    runtime: docker
+    plan: free
+    region: ohio            # closest to the Neon project (us-east-2)
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false         # Neon pooled connection string (postgresql+psycopg2://...?sslmode=require)
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: CLERK_ISSUER
+        sync: false         # https://<instance>.clerk.accounts.dev
+      - key: CLERK_AUTHORIZED_PARTIES
+        sync: false         # your frontend origin, e.g. https://udhaar-ledger.vercel.app
+      - key: CORS_ORIGINS
+        sync: false         # same frontend origin
+      - key: ADMIN_EMAILS
+        sync: false
+      - key: DEMO_ENABLED
+        value: "true"

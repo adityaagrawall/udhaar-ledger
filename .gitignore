@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Node
+node_modules/
+.next/
+.env.local
+.env*.local
+
+# Database
+*.db
+*.sqlite
+
+# Environment
+.env
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Local tooling and data not meant for the public repo
+.claude/
+backend/data/
+test_ibm.csv
+backend/app/ml/artifacts/*.pkl

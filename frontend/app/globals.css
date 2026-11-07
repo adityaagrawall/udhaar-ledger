@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #f4f6fb;
+    --foreground: #0b1330;
+  }
+
+  body {
+    color: var(--foreground);
+    background-color: var(--background);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #fde68a;
+    color: #0b1330;
+  }
+
+  :focus-visible {
+    outline: 2px solid #3b5cdb;
+    outline-offset: 2px;
+  }
+
+  button:not(:disabled),
+  a,
+  [role="button"],
+  select,
+  summary {
+    cursor: pointer;
+  }
+
+  /* Figures line up in tables and KPI tiles */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+@layer utilities {
+  .surface {
+    @apply bg-white border border-border rounded-2xl shadow-card;
+  }
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd3e4;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8e9bc7;
+}
