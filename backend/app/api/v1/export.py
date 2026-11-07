@@ -4,10 +4,12 @@ import io
 from datetime import date
 from decimal import Decimal
 
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.core.deps import get_db, get_current_user
+from app.core.limiter import limiter
 from app.services.invoice_service import list_invoices
 from app.services.collection_service import get_collection_queue
 from app.services.analytics_service import get_aging_report
@@ -16,13 +18,15 @@ router = APIRouter()
 
 
 def _sanitize_csv_cell(val):
-    if isinstance(val, str) and val.startswith(("=", "+", "-", "@", "\t", "\r")):
+    if isinstance(val, str) and val.lstrip(" ").startswith(("=", "+", "-", "@", "\t", "\r", "\n")):
         return "'" + val
     return val
 
 
 @router.get("/invoices")
+@limiter.limit(settings.RATE_LIMIT_HEAVY)
 def export_invoices_csv(
+    request: Request,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -57,12 +61,14 @@ def export_invoices_csv(
     return Response(
         content=csv_data,
         media_type="text/csv",
-        headers={"Content-Disposition": f"attachment; filename=collectiq_invoices_{date.today().isoformat()}.csv"},
+        headers={"Content-Disposition": f"attachment; filename=udhaar_ledger_invoices_{date.today().isoformat()}.csv"},
     )
 
 
 @router.get("/queue")
+@limiter.limit(settings.RATE_LIMIT_HEAVY)
 def export_queue_csv(
+    request: Request,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -97,5 +103,5 @@ def export_queue_csv(
     return Response(
         content=csv_data,
         media_type="text/csv",
-        headers={"Content-Disposition": f"attachment; filename=collectiq_collections_queue_{date.today().isoformat()}.csv"},
+        headers={"Content-Disposition": f"attachment; filename=udhaar_ledger_collections_queue_{date.today().isoformat()}.csv"},
     )

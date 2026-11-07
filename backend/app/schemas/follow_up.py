@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Optional
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class FollowUpCreate(BaseModel):
@@ -11,7 +11,7 @@ class FollowUpCreate(BaseModel):
     customer_id: UUID
     status: str = "pending"
     channel: str = "whatsapp"
-    notes: Optional[str] = None
+    notes: Optional[str] = Field(default=None, max_length=2000)
     scheduled_at: Optional[datetime] = None
     promised_amount: Optional[Decimal] = None
     promised_date: Optional[date] = None

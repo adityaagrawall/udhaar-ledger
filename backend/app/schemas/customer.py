@@ -3,15 +3,15 @@ from decimal import Decimal
 from typing import Optional
 from uuid import UUID
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class CustomerBase(BaseModel):
-    name: str
-    email: Optional[str] = None
-    phone: Optional[str] = None
-    gst_number: Optional[str] = None
-    address: Optional[str] = None
+    name: str = Field(min_length=1, max_length=300)
+    email: Optional[str] = Field(default=None, max_length=255)
+    phone: Optional[str] = Field(default=None, max_length=20)
+    gst_number: Optional[str] = Field(default=None, max_length=15)
+    address: Optional[str] = Field(default=None, max_length=2000)
     credit_limit: Decimal = Decimal("100000.00")
     payment_terms_days: int = 30
     risk_tier: str = "medium"
@@ -22,10 +22,10 @@ class CustomerCreate(CustomerBase):
 
 
 class CustomerUpdate(BaseModel):
-    name: Optional[str] = None
-    email: Optional[str] = None
-    phone: Optional[str] = None
-    gst_number: Optional[str] = None
+    name: Optional[str] = Field(default=None, min_length=1, max_length=300)
+    email: Optional[str] = Field(default=None, max_length=255)
+    phone: Optional[str] = Field(default=None, max_length=20)
+    gst_number: Optional[str] = Field(default=None, max_length=15)
     credit_limit: Optional[Decimal] = None
     payment_terms_days: Optional[int] = None
     risk_tier: Optional[str] = None

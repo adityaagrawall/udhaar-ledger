@@ -1,6 +1,8 @@
+import logging
+
 from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from jose import JWTError
+from jwt import PyJWTError as JWTError
 from sqlalchemy.orm import Session
 
 from app.core import clerk
@@ -9,11 +11,12 @@ from app.core.database import get_db
 from app.core.security import verify_token
 from app.models.user import User
 
+logger = logging.getLogger("udhaar.auth")
 bearer_scheme = HTTPBearer(auto_error=False)
 
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
 # Writes a read-only viewer may still make: they draft text, they do not change records.
-VIEWER_WRITE_ALLOWLIST = ("/api/v1/reminders/draft", "/api/v1/ml/predict")
+VIEWER_WRITE_ALLOWLIST = ("/api/v1/reminders/draft",)
 
 
 def get_current_user(
@@ -36,6 +39,7 @@ def get_current_user(
             claims = clerk.verify_session_token(token)
             user = clerk.get_or_provision_user(db, claims["sub"])
         except clerk.ClerkAuthError as e:
+            logger.warning("Rejected Clerk token on %s %s: %s", request.method, request.url.path, e)
             raise HTTPException(status_code=401, detail=str(e), headers={"WWW-Authenticate": "Bearer"})
         if not user.is_active:
             raise credentials_exception

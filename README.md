@@ -144,6 +144,10 @@ Open http://localhost:3000. Emails in `ADMIN_EMAILS` become admins on first sign
 
 Sign-in is handled entirely by Clerk. The frontend sends a short-lived Clerk session JWT; the API verifies its signature against Clerk's JWKS plus issuer, expiry and authorised origin, then maps the Clerk user to a local user on first sign-in. Viewers can read everything but any change is rejected with `403` by the server, not just hidden in the UI. The demo button asks the API for a one-time Clerk sign-in ticket for a shared read-only account, so no demo password exists. Password login is off unless `ALLOW_LOCAL_JWT=true` (used only by tests), and production refuses to start with a default `SECRET_KEY`.
 
+## Security
+
+The full control list and honest limits are in [SECURITY.md](SECURITY.md). In short: Clerk-only auth with server-enforced read-only viewers, per-IP rate limits, strict security headers and CSP, input and upload limits, and CI that runs CodeQL, secret scanning and dependency audits. 79 backend tests include a check that every route requires a token.
+
 ## Deploy
 
 | Piece | Service | Notes |

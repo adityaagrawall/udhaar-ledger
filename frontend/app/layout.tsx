@@ -24,6 +24,7 @@ const mono = Fira_Code({
 export const metadata: Metadata = {
   title: "Udhaar Ledger — Decision layer for distributor credit",
   description: "Ranked, explainable daily collection lists for Indian distributors and wholesalers.",
+  icons: { icon: "/logo.svg" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

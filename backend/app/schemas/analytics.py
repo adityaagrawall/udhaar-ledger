@@ -1,7 +1,8 @@
 from decimal import Decimal
 from typing import Optional
 
-from pydantic import BaseModel
+from typing import Literal
+from pydantic import BaseModel, Field
 
 
 class CollectionQueueItem(BaseModel):
@@ -33,9 +34,9 @@ class CollectionQueueResponse(BaseModel):
 
 
 class ReminderDraftRequest(BaseModel):
-    follow_up_id: str
-    channel: str = "whatsapp"  # whatsapp | sms
-    language: str = "english"  # english | hindi
+    follow_up_id: str = Field(max_length=64)
+    channel: Literal["whatsapp", "sms"] = "whatsapp"
+    language: Literal["english", "hindi"] = "english"
 
 
 class ReminderDraftResponse(BaseModel):

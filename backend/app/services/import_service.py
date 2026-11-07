@@ -20,6 +20,7 @@ from typing import Any
 import pandas as pd
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.models.customer import Customer, RiskTier
 from app.models.import_job import ImportJob, ImportJobStatus
 from app.models.invoice import Invoice, InvoiceStatus
@@ -76,6 +77,22 @@ def _parse_decimal(val: Any) -> Decimal:
         raise ValueError(f"Cannot parse amount: {val!r}")
 
 
+class ImportFileError(ValueError):
+    """A file problem whose message is safe to show the user."""
+
+
+def _guard_zip_bomb(file_bytes: bytes) -> None:
+    """An .xlsx is a zip; refuse files that would expand to an unreasonable size in memory."""
+    import zipfile
+
+    if not zipfile.is_zipfile(io.BytesIO(file_bytes)):
+        return  # legacy .xls or a mislabelled file; the parser will reject it
+    with zipfile.ZipFile(io.BytesIO(file_bytes)) as zf:
+        total = sum(i.file_size for i in zf.infolist())
+    if total > settings.IMPORT_MAX_UNZIPPED_MB * 1024 * 1024:
+        raise ImportFileError("Spreadsheet is too large once unpacked.")
+
+
 def _file_hash(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
 
@@ -94,11 +111,17 @@ def preview_import(
     # Read file
     try:
         if filename.lower().endswith(".xlsx") or filename.lower().endswith(".xls"):
+            _guard_zip_bomb(file_bytes)
             df = pd.read_excel(io.BytesIO(file_bytes), dtype=str)
         else:
-            df = pd.read_csv(io.BytesIO(file_bytes), dtype=str)
-    except Exception as e:
-        raise ValueError(f"Cannot read file: {e}")
+            df = pd.read_csv(io.BytesIO(file_bytes), dtype=str, nrows=settings.IMPORT_MAX_ROWS + 1)
+    except ImportFileError:
+        raise
+    except Exception:
+        raise ValueError("Cannot read file. Check that it is a valid CSV or Excel export.")
+
+    if len(df) > settings.IMPORT_MAX_ROWS:
+        raise ValueError(f"File has more than {settings.IMPORT_MAX_ROWS:,} rows. Split it into smaller files.")
 
     df.columns = [str(c).strip().lower().replace(" ", "_") for c in df.columns]
 

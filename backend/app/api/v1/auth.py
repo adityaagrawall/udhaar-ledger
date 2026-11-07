@@ -1,22 +1,18 @@
-import time
-
 import httpx
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
-from jose import JWTError
+from jwt import PyJWTError as JWTError
 from sqlalchemy.orm import Session
 
 from app.core.clerk import create_demo_sign_in_ticket
 from app.core.config import settings
+from app.core.limiter import limiter
 from app.core.deps import get_current_user, get_db
 from app.models.user import User
 from app.schemas.auth import LoginRequest, RefreshRequest, TokenResponse, UserResponse
 from app.services.auth_service import authenticate_user, create_tokens, refresh_access_token
 
 router = APIRouter()
-
-_demo_hits: dict[str, list[float]] = {}
-
 
 def _require_local_login():
     if not settings.ALLOW_LOCAL_JWT:
@@ -30,16 +26,11 @@ def auth_config():
 
 
 @router.post("/demo")
+@limiter.limit("10/minute")
 def demo_ticket(request: Request):
     """Public: one-time Clerk sign-in ticket for the shared read-only demo account."""
     if not (settings.DEMO_ENABLED and settings.CLERK_SECRET_KEY):
         raise HTTPException(status_code=404, detail="Demo access is not enabled")
-    ip = request.client.host if request.client else "unknown"
-    now = time.time()
-    hits = [t for t in _demo_hits.get(ip, []) if now - t < 60]
-    if len(hits) >= 10:
-        raise HTTPException(status_code=429, detail="Too many demo sign-ins. Try again in a minute.")
-    _demo_hits[ip] = hits + [now]
     try:
         return {"ticket": create_demo_sign_in_ticket()}
     except httpx.HTTPError:

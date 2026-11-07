@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Optional
 from uuid import UUID
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class AllocationIn(BaseModel):
@@ -15,9 +15,9 @@ class PaymentCreate(BaseModel):
     customer_id: UUID
     received_date: date
     amount: Decimal
-    reference_no: Optional[str] = None
-    payment_mode: str = "neft"
-    notes: Optional[str] = None
+    reference_no: Optional[str] = Field(default=None, max_length=100)
+    payment_mode: str = Field(default="neft", max_length=20)
+    notes: Optional[str] = Field(default=None, max_length=2000)
     # Invoice allocations: list of allocations to specific invoices
     allocations: list[AllocationIn] = []
 

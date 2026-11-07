@@ -1,10 +1,11 @@
 from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, UploadFile, File, status
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.limiter import limiter
 from app.core.deps import get_current_user, get_db, get_org_id
 from app.models.import_job import ImportJob
 from app.models.user import User
@@ -15,7 +16,9 @@ router = APIRouter()
 
 
 @router.post("/preview", response_model=ImportPreviewResponse)
+@limiter.limit(settings.RATE_LIMIT_HEAVY)
 async def preview_import_route(
+    request: Request,
     file: UploadFile = File(...),
     org_id: str = Depends(get_org_id),
     db: Session = Depends(get_db),
@@ -38,7 +41,9 @@ async def preview_import_route(
 
 
 @router.post("/commit", response_model=ImportJobResponse)
+@limiter.limit(settings.RATE_LIMIT_HEAVY)
 def commit_import_route(
+    request: Request,
     body: ImportCommitRequest,
     org_id: str = Depends(get_org_id),
     current_user: User = Depends(get_current_user),

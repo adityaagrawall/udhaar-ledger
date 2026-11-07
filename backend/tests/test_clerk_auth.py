@@ -4,7 +4,8 @@ import uuid
 
 import pytest
 from cryptography.hazmat.primitives.asymmetric import rsa
-from jose import jwk, jwt
+import jwt
+from jwt.algorithms import RSAAlgorithm
 
 from app.core import clerk
 from app.core.config import settings
@@ -19,10 +20,7 @@ def rsa_key(monkeypatch):
     from cryptography.hazmat.primitives import serialization
 
     pem = key.private_bytes(serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8, serialization.NoEncryption())
-    pub = jwk.construct(
-        key.public_key().public_bytes(serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo),
-        "RS256",
-    ).to_dict()
+    pub = RSAAlgorithm.to_jwk(key.public_key(), as_dict=True)
     pub.update(kid="test-kid", use="sig")
     monkeypatch.setattr(settings, "CLERK_ISSUER", ISSUER)
     monkeypatch.setattr(settings, "CLERK_AUTHORIZED_PARTIES", "http://localhost:3001")

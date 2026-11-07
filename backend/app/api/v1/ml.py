@@ -2,11 +2,15 @@
 from typing import Any
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 import numpy as np
 
+from app.core.config import settings
+from app.core.limiter import limiter
 from app.core.deps import get_db, get_current_user, require_roles
 from app.ml.predict import predict_invoice, batch_predict
 from app.ml.train import train_model, load_model, load_classifier, FEATURE_COLS, MODEL_VERSION
@@ -15,22 +19,28 @@ from app.ml.features import extract_features
 from app.schemas.ml import PredictionRequest, PredictionOut, BatchPredictionRequest, BatchPredictionResponse
 
 router = APIRouter()
+logger = logging.getLogger("udhaar.ml")
 
 
 @router.post("/predict", response_model=PredictionOut)
+@limiter.limit(settings.RATE_LIMIT_REMINDER)
 def predict_single_invoice(
+    request: Request,
     payload: PredictionRequest,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     try:
         return predict_invoice(payload.invoice_id, current_user.org_id, db)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except Exception:
+        logger.exception("Prediction failed")
+        raise HTTPException(status_code=400, detail="Prediction failed for the requested invoice")
 
 
 @router.post("/predict/batch", response_model=BatchPredictionResponse)
+@limiter.limit(settings.RATE_LIMIT_HEAVY)
 def predict_batch_invoices(
+    request: Request,
     payload: BatchPredictionRequest,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -41,8 +51,9 @@ def predict_batch_invoices(
             predictions=preds,
             model_version=MODEL_VERSION if load_model(current_user.org_id) else "heuristic-v1",
         )
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except Exception:
+        logger.exception("Prediction failed")
+        raise HTTPException(status_code=400, detail="Prediction failed for the requested invoice")
 
 
 @router.get("/evaluation")
@@ -133,7 +144,8 @@ def get_ml_evaluation(
                         "note": "Evaluated strictly on held-out 20% newest invoices sorted by issue_date.",
                     }
         except Exception as e:
-            computed_metrics = {"error": f"Metric computation failed: {str(e)}"}
+            logger.exception("Metric computation failed")
+            computed_metrics = {"error": "Metric computation failed"}
 
     return {
         "status": "ready" if (reg_model and cls_model) else "demo_heuristic",
@@ -149,7 +161,9 @@ def get_ml_evaluation(
 
 
 @router.post("/train")
+@limiter.limit("3/minute")
 def trigger_training(
+    request: Request,
     current_user=Depends(require_roles("admin", "manager")),
     db: Session = Depends(get_db),
 ):
@@ -157,4 +171,5 @@ def trigger_training(
         metrics = train_model(current_user.org_id, db)
         return {"status": "trained", "metrics": metrics}
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Training failed: {e}")
+        logger.exception("Training failed")
+        raise HTTPException(status_code=400, detail="Training failed. Check that enough settled invoices exist.")

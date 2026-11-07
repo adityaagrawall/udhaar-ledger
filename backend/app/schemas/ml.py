@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PredictionRequest(BaseModel):
@@ -25,7 +25,7 @@ class PredictionOut(BaseModel):
 
 
 class BatchPredictionRequest(BaseModel):
-    invoice_ids: list[UUID]
+    invoice_ids: list[UUID] = Field(max_length=100)
 
 
 class BatchPredictionResponse(BaseModel):

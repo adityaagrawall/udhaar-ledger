@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     UPLOAD_MAX_MB: int = 20
 
     # Rate limits
-    RATE_LIMIT_REMINDER: str = "10/minute"
+    RATE_LIMIT_REMINDER: str = "20/minute"
 
     # Environment
     ENVIRONMENT: str = "development"
@@ -43,6 +43,17 @@ class Settings(BaseSettings):
 
     # Legacy email/password JWTs. Off by default; the test suite turns it on.
     ALLOW_LOCAL_JWT: bool = False
+
+    # --- Hardening ---
+    ENABLE_DOCS: bool = False  # /docs and /openapi.json are hidden in production unless true
+    RATE_LIMIT_ENABLED: bool = True
+    RATE_LIMIT_DEFAULT: str = "240/minute"  # per client IP, every route
+    RATE_LIMIT_HEAVY: str = "10/minute"  # imports, training, exports
+    MAX_REQUEST_BYTES: int = 25 * 1024 * 1024
+    IMPORT_MAX_ROWS: int = 20000
+    IMPORT_MAX_UNZIPPED_MB: int = 200  # zip-bomb guard for .xlsx
+    # When false, only users that already exist locally (matched by email) can sign in.
+    AUTO_PROVISION_USERS: bool = True
 
     CORS_ORIGINS: str = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001"
 

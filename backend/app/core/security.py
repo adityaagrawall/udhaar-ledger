@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 from typing import Any
 import uuid
 
-from jose import JWTError, jwt
+import jwt
+from jwt import PyJWTError as JWTError
 import bcrypt
 
 from app.core.config import settings
@@ -37,7 +38,12 @@ def create_refresh_token(data: dict[str, Any]) -> str:
 
 def verify_token(token: str, token_type: str = "access") -> dict[str, Any]:
     """Decode and validate a JWT token. Raises JWTError on failure."""
-    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+    payload = jwt.decode(
+        token,
+        settings.SECRET_KEY,
+        algorithms=[settings.ALGORITHM],
+        options={"require": ["exp", "sub"]},
+    )
     if payload.get("type") != token_type:
         raise JWTError("Invalid token type")
     return payload

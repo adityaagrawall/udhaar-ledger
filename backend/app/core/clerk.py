@@ -13,8 +13,8 @@ import time
 from typing import Any, Optional
 
 import httpx
-from jose import jwt
-from jose.exceptions import JWTError
+import jwt
+from jwt import PyJWTError as JWTError
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -63,19 +63,20 @@ def verify_session_token(token: str) -> dict[str, Any]:
     except JWTError as e:
         raise ClerkAuthError("Malformed token") from e
 
-    key = next((k for k in _get_jwks() if k.get("kid") == kid), None)
-    if key is None:  # key rotation: refresh once
-        key = next((k for k in _get_jwks(force=True) if k.get("kid") == kid), None)
-    if key is None:
+    jwk = next((k for k in _get_jwks() if k.get("kid") == kid), None)
+    if jwk is None:  # key rotation: refresh once
+        jwk = next((k for k in _get_jwks(force=True) if k.get("kid") == kid), None)
+    if jwk is None:
         raise ClerkAuthError("Unknown signing key")
 
     try:
         claims = jwt.decode(
             token,
-            key,
-            algorithms=["RS256"],
+            jwt.PyJWK(jwk).key,
+            algorithms=["RS256"],  # never accept the token's own alg choice
             issuer=settings.CLERK_ISSUER.rstrip("/"),
-            options={"verify_aud": False, "leeway": 10},
+            leeway=10,
+            options={"verify_aud": False, "require": ["exp", "iat", "sub", "iss"]},
         )
     except JWTError as e:
         raise ClerkAuthError("Invalid or expired session") from e
@@ -130,6 +131,9 @@ def get_or_provision_user(db: Session, clerk_user_id: str) -> User:
         user.clerk_user_id = clerk_user_id
         db.commit()
         return user
+
+    if not settings.AUTO_PROVISION_USERS and not is_demo and email not in settings.admin_emails:
+        raise ClerkAuthError("This account has not been invited")
 
     role = UserRole.admin.value if (email in settings.admin_emails and not is_demo) else UserRole.viewer.value
     user = User(

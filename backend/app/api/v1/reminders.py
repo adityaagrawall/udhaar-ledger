@@ -1,20 +1,27 @@
 """Reminder drafting, preview, approval, and dispatch endpoints."""
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.core.deps import get_db, get_current_user
+from app.core.limiter import limiter
 from app.models.follow_up import FollowUp, FollowUpStatus
 from app.models.organization import Organization
 from app.schemas.analytics import ReminderDraftRequest, ReminderDraftResponse
 from app.services.reminder_service import draft_reminder
 
 router = APIRouter()
+logger = logging.getLogger("udhaar.reminders")
 
 
 @router.post("/draft", response_model=ReminderDraftResponse)
+@limiter.limit(settings.RATE_LIMIT_REMINDER)
 def create_reminder_draft(
+    request: Request,
     payload: ReminderDraftRequest,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -33,8 +40,9 @@ def create_reminder_draft(
         )
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except Exception:
+        logger.exception("Reminder draft failed")
+        raise HTTPException(status_code=400, detail="Could not draft the reminder")
 
 
 @router.post("/approve/{follow_up_id}")
