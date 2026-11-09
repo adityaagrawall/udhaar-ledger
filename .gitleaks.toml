@@ -1,0 +1,12 @@
+title = "Udhaar Ledger gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known non-secrets"
+regexes = [
+  # CI placeholder Clerk publishable key. It decodes to "example.clerk.accounts.dev$" and exists only so
+  # the frontend can prerender in CI. Publishable keys are public by design.
+  '''pk_test_ZXhhbXBsZS5jbGVyay5hY2NvdW50cy5kZXYk''',
+]
