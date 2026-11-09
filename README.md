@@ -4,7 +4,7 @@
 
 <br/>
 
-[![Live demo](https://img.shields.io/badge/LIVE_DEMO-OPEN_THE_APP-10B981?style=for-the-badge&logo=vercel&logoColor=white)](https://udhaar-ledger-sigma.vercel.app)
+[![Live demo](https://img.shields.io/badge/LIVE_DEMO-OPEN_THE_APP-10B981?style=for-the-badge&logo=vercel&logoColor=white)](https://udhaarledger.vercel.app)
 [![CI](https://img.shields.io/github/actions/workflow/status/adityaagrawall/udhaar-ledger/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white)](https://github.com/adityaagrawall/udhaar-ledger/actions/workflows/ci.yml)
 [![Security](https://img.shields.io/github/actions/workflow/status/adityaagrawall/udhaar-ledger/security.yml?branch=main&style=for-the-badge&label=SECURITY&logo=github&logoColor=white)](https://github.com/adityaagrawall/udhaar-ledger/actions/workflows/security.yml)
 [![License](https://img.shields.io/badge/LICENSE-MIT-F59E0B?style=for-the-badge)](LICENSE)
@@ -156,7 +156,7 @@ DSO, collection effectiveness, expected inflows and promise-to-pay results. The 
 
 ## 🚀 Try it live
 
-**[udhaar-ledger-sigma.vercel.app](https://udhaar-ledger-sigma.vercel.app)** → click **Explore the live demo**. No sign-up.
+**[udhaarledger.vercel.app](https://udhaarledger.vercel.app)** → click **Explore the live demo**. No sign-up.
 
 You are signed into a shared **read-only** account with synthetic data for a fictional distributor (150 customers, 800 invoices). You can browse everything. The server rejects any change, so there is nothing to break.
 

@@ -21,7 +21,7 @@ services:
       - key: CLERK_ISSUER
         sync: false         # https://<instance>.clerk.accounts.dev
       - key: CLERK_AUTHORIZED_PARTIES
-        sync: false         # your frontend origin, e.g. https://udhaar-ledger.vercel.app
+        sync: false         # your frontend origin, e.g. https://udhaarledger.vercel.app
       - key: CORS_ORIGINS
         sync: false         # same frontend origin
       - key: ADMIN_EMAILS
