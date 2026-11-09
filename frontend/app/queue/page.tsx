@@ -121,12 +121,14 @@ export default function QueuePage() {
             </h2>
             <p className="mt-1 text-sm text-slate-500 flex items-start gap-1.5 max-w-2xl">
               <Info className="w-4 h-4 mt-0.5 text-slate-400 flex-shrink-0" />
-              Invoice-level score: days overdue (up to 40) + amount (up to 30) + risk tier (up to 20) + broken promise (15) + no recent
-              contact (10). For the account-level daily list, use{" "}
-              <Link href="/today" className="font-semibold text-brand-600 hover:underline">
-                Today
-              </Link>
-              .
+              <span>
+                Invoice-level score: days overdue (up to 40) + amount (up to 30) + risk tier (up to 20) + broken promise (15) + no recent
+                contact (10). For the account-level daily list, use{" "}
+                <Link href="/today" className="font-semibold text-brand-600 hover:underline">
+                  Today
+                </Link>
+                .
+              </span>
             </p>
           </div>
           <button
