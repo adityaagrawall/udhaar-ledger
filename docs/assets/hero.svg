@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" width="1280" height="380" role="img" aria-label="Udhaar Ledger: chase the right retailer, not the biggest balance">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1330"/><stop offset="1" stop-color="#17297A"/></linearGradient>
+    <radialGradient id="glow" cx="0.9" cy="0" r="0.8"><stop offset="0" stop-color="#3B5CDB" stop-opacity=".6"/><stop offset="1" stop-color="#3B5CDB" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glow2" cx="0.05" cy="1.1" r="0.6"><stop offset="0" stop-color="#F59E0B" stop-opacity=".22"/><stop offset="1" stop-color="#F59E0B" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#fff" stroke-opacity=".055"/></pattern>
+    <linearGradient id="lg1" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse"><stop stop-color="#2B4BC7"/><stop offset="1" stop-color="#0B1330"/></linearGradient>
+    <linearGradient id="lg2" x1="24" y1="22" x2="46" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#FCD34D"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+  </defs>
+  <rect width="1280" height="380" rx="26" fill="url(#bg)"/>
+  <rect width="1280" height="380" rx="26" fill="url(#glow)"/>
+  <rect width="1280" height="380" rx="26" fill="url(#glow2)"/>
+  <rect width="1280" height="380" rx="26" fill="url(#grid)"/>
+
+  <g transform="translate(64 50) scale(1.05)">
+    <rect width="64" height="64" rx="16" fill="url(#lg1)"/>
+    <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="2"/>
+    <path d="M18 13v21a14 14 0 0 0 28 0V13" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M25.5 31.5 31 37l10-13" fill="none" stroke="url(#lg2)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14 52h36" stroke="#fff" stroke-opacity=".3" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <g font-family="'Segoe UI', Inter, 'Helvetica Neue', Arial, sans-serif">
+    <text x="146" y="86" font-size="34" font-weight="700" fill="#fff">Udhaar <tspan fill="#FBBF24">Ledger</tspan></text>
+    <text x="147" y="112" font-size="12" font-weight="600" letter-spacing="3" fill="#9DB0F5">DECISION LAYER FOR DISTRIBUTOR CREDIT</text>
+
+    <text x="64" y="200" font-size="46" font-weight="800" fill="#fff">Chase the right retailer,</text>
+    <text x="64" y="254" font-size="46" font-weight="800" fill="#FBBF24">not the biggest balance.</text>
+    <text x="64" y="294" font-size="18" fill="#B9C6F7">A ranked, explainable daily call list for Indian distributors.</text>
+
+    <g font-size="13" font-weight="600">
+      <rect x="64" y="318" width="214" height="32" rx="16" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".18"/>
+      <circle cx="84" cy="334" r="4.5" fill="#34D399"/><text x="96" y="339" fill="#E3EAFF">Ranked by recoverable ₹</text>
+      <rect x="288" y="318" width="154" height="32" rx="16" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".18"/>
+      <circle cx="308" cy="334" r="4.5" fill="#FBBF24"/><text x="320" y="339" fill="#E3EAFF">Explains itself</text>
+      <rect x="452" y="318" width="188" height="32" rx="16" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".18"/>
+      <circle cx="472" cy="334" r="4.5" fill="#818CF8"/><text x="484" y="339" fill="#E3EAFF">You stay in control</text>
+    </g>
+
+    <!-- lane tiles -->
+    <g>
+      <rect x="800" y="52" width="200" height="104" rx="16" fill="#fff" fill-opacity=".07" stroke="#34D399" stroke-opacity=".55"/>
+      <circle cx="824" cy="78" r="5" fill="#34D399"/><text x="838" y="83" font-size="14" font-weight="600" fill="#A7F3D0">Call today</text>
+      <text x="822" y="132" font-size="44" font-weight="700" fill="#fff" font-family="'SFMono-Regular', Menlo, Consolas, monospace">5</text>
+
+      <rect x="1012" y="52" width="200" height="104" rx="16" fill="#fff" fill-opacity=".07" stroke="#FB7185" stroke-opacity=".55"/>
+      <circle cx="1036" cy="78" r="5" fill="#FB7185"/><text x="1050" y="83" font-size="14" font-weight="600" fill="#FECDD3">Escalate</text>
+      <text x="1034" y="132" font-size="44" font-weight="700" fill="#fff" font-family="'SFMono-Regular', Menlo, Consolas, monospace">107</text>
+
+      <rect x="800" y="168" width="200" height="104" rx="16" fill="#fff" fill-opacity=".07" stroke="#FBBF24" stroke-opacity=".55"/>
+      <circle cx="824" cy="194" r="5" fill="#FBBF24"/><text x="838" y="199" font-size="14" font-weight="600" fill="#FDE68A">Resolve</text>
+      <text x="822" y="248" font-size="44" font-weight="700" fill="#fff" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0</text>
+
+      <rect x="1012" y="168" width="200" height="104" rx="16" fill="#fff" fill-opacity=".07" stroke="#818CF8" stroke-opacity=".55"/>
+      <circle cx="1036" cy="194" r="5" fill="#818CF8"/><text x="1050" y="199" font-size="14" font-weight="600" fill="#C7D2FE">Message</text>
+      <text x="1034" y="248" font-size="44" font-weight="700" fill="#fff" font-family="'SFMono-Regular', Menlo, Consolas, monospace">4</text>
+
+      <rect x="800" y="284" width="412" height="66" rx="16" fill="#fff" fill-opacity=".07" stroke="#fff" stroke-opacity=".16"/>
+      <text x="824" y="312" font-size="15" font-weight="700" fill="#fff">Gupta Pharma Dist</text>
+      <text x="824" y="333" font-size="12.5" fill="#B9C6F7">36 days overdue · usually pays on its own</text>
+      <text x="1190" y="320" font-size="20" font-weight="700" fill="#FBBF24" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹7,69,000</text>
+    </g>
+  </g>
+</svg>

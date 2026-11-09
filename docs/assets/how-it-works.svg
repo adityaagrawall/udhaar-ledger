@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 270" width="1200" height="270" role="img" aria-label="How it works: import, rank, act and log">
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B5CDB"/><stop offset="1" stop-color="#2B49BD"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBBF24"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+    <linearGradient id="c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+  </defs>
+  <g font-family="'Segoe UI', Inter, 'Helvetica Neue', Arial, sans-serif">
+    <g transform="translate(0 0)">
+      <rect x="4" y="4" width="372" height="262" rx="20" fill="#fff" stroke="#DDE6FF"/>
+      <rect x="4" y="4" width="372" height="8" rx="4" fill="url(#a)"/>
+      <circle cx="46" cy="58" r="22" fill="url(#a)"/><text x="46" y="65" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">1</text>
+      <text x="82" y="66" font-size="22" font-weight="700" fill="#0B1330">Import</text>
+      <text x="30" y="112" font-size="15" fill="#475569">Bring invoices and receipts in</text>
+      <text x="30" y="134" font-size="15" fill="#475569">from Tally or Excel exports.</text>
+      <text x="30" y="170" font-size="15" fill="#475569">Bad rows, duplicate invoices and</text>
+      <text x="30" y="192" font-size="15" fill="#475569">late receipts are flagged, never</text>
+      <text x="30" y="214" font-size="15" fill="#475569">silently fixed.</text>
+      <rect x="30" y="228" width="120" height="26" rx="13" fill="#EFF3FF"/><text x="90" y="245" font-size="12" font-weight="600" fill="#2B49BD" text-anchor="middle">CSV · XLSX</text>
+    </g>
+    <path d="M384 135h32m-8-8 8 8-8 8" fill="none" stroke="#94A3B8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(414 0)">
+      <rect x="4" y="4" width="372" height="262" rx="20" fill="#fff" stroke="#FDE68A"/>
+      <rect x="4" y="4" width="372" height="8" rx="4" fill="url(#b)"/>
+      <circle cx="46" cy="58" r="22" fill="url(#b)"/><text x="46" y="65" font-size="20" font-weight="800" fill="#0B1330" text-anchor="middle">2</text>
+      <text x="82" y="66" font-size="22" font-weight="700" fill="#0B1330">Rank</text>
+      <text x="30" y="112" font-size="15" fill="#475569">Each retailer is scored by what</text>
+      <text x="30" y="134" font-size="15" fill="#475569">a call is worth, not by risk.</text>
+      <text x="30" y="170" font-size="15" fill="#475569">Disputes and silent accounts are</text>
+      <text x="30" y="192" font-size="15" fill="#475569">routed to the owner, not chased</text>
+      <text x="30" y="214" font-size="15" fill="#475569">in circles.</text>
+      <rect x="30" y="228" width="236" height="26" rx="13" fill="#FFFBEB"/><text x="148" y="245" font-size="12" font-weight="600" fill="#B45309" text-anchor="middle">Transparent rules, no black box</text>
+    </g>
+    <path d="M798 135h32m-8-8 8 8-8 8" fill="none" stroke="#94A3B8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(828 0)">
+      <rect x="4" y="4" width="364" height="262" rx="20" fill="#fff" stroke="#A7F3D0"/>
+      <rect x="4" y="4" width="364" height="8" rx="4" fill="url(#c)"/>
+      <circle cx="46" cy="58" r="22" fill="url(#c)"/><text x="46" y="65" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">3</text>
+      <text x="82" y="66" font-size="22" font-weight="700" fill="#0B1330">Act and log</text>
+      <text x="30" y="112" font-size="15" fill="#475569">Call, log a promise to pay, mark</text>
+      <text x="30" y="134" font-size="15" fill="#475569">a dispute. Reminders are drafted</text>
+      <text x="30" y="156" font-size="15" fill="#475569">for you to review and send.</text>
+      <text x="30" y="192" font-size="15" fill="#475569">Every outcome is recorded, so the</text>
+      <text x="30" y="214" font-size="15" fill="#475569">list gets smarter over time.</text>
+      <rect x="30" y="228" width="210" height="26" rx="13" fill="#ECFDF5"/><text x="135" y="245" font-size="12" font-weight="600" fill="#047857" text-anchor="middle">Nothing is sent automatically</text>
+    </g>
+  </g>
+</svg>

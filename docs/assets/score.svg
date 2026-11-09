@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 350" width="1200" height="350" role="img" aria-label="Score equals overdue rupees times response pattern times age weight times contact cooldown">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1330"/><stop offset="1" stop-color="#17297A"/></linearGradient></defs>
+  <rect width="1200" height="350" rx="26" fill="url(#bg)"/>
+  <g font-family="'Segoe UI', Inter, 'Helvetica Neue', Arial, sans-serif">
+    <text x="600" y="58" font-size="13" font-weight="700" letter-spacing="3" fill="#9DB0F5" text-anchor="middle">THE RANKING RULE</text>
+    <text x="600" y="108" font-size="38" font-weight="700" text-anchor="middle" font-family="'SFMono-Regular', Menlo, Consolas, monospace" fill="#fff">score = <tspan fill="#FBBF24">overdue ₹</tspan> × <tspan fill="#34D399">R</tspan> × <tspan fill="#818CF8">W</tspan> × <tspan fill="#FB7185">C</tspan></text>
+
+    <g transform="translate(40 140)">
+      <rect width="360" height="186" rx="18" fill="#fff" fill-opacity=".07" stroke="#34D399" stroke-opacity=".5"/>
+      <text x="22" y="34" font-size="16" font-weight="700" fill="#6EE7B7">R · Response pattern</text>
+      <text x="22" y="54" font-size="12.5" fill="#B9C6F7">Learned from this firm's own payments</text>
+        <text x="22" y="88" font-size="14" fill="#E3EAFF">pays when asked</text><text x="336" y="88" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">1.0</text>
+        <text x="22" y="109" font-size="14" fill="#E3EAFF">thin history</text><text x="336" y="109" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.7</text>
+        <text x="22" y="130" font-size="14" fill="#E3EAFF">missed a promise</text><text x="336" y="130" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.6</text>
+        <text x="22" y="151" font-size="14" fill="#E3EAFF">pays on its own</text><text x="336" y="151" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.4</text>
+        <text x="22" y="172" font-size="14" fill="#E3EAFF">unresponsive</text><text x="336" y="172" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.3</text>
+    </g>
+    <g transform="translate(420 140)">
+      <rect width="360" height="186" rx="18" fill="#fff" fill-opacity=".07" stroke="#818CF8" stroke-opacity=".5"/>
+      <text x="22" y="34" font-size="16" font-weight="700" fill="#A5B4FC">W · Age weight</text>
+      <text x="22" y="54" font-size="12.5" fill="#B9C6F7">Early lateness often corrects itself</text>
+        <text x="22" y="88" font-size="14" fill="#E3EAFF">1–7 days</text><text x="336" y="88" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.5</text>
+        <text x="22" y="109" font-size="14" fill="#E3EAFF">8–30 days</text><text x="336" y="109" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">1.0</text>
+        <text x="22" y="130" font-size="14" fill="#E3EAFF">31–60 days</text><text x="336" y="130" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">1.2</text>
+        <text x="22" y="151" font-size="14" fill="#E3EAFF">61–90 days</text><text x="336" y="151" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.9</text>
+        <text x="22" y="172" font-size="14" fill="#E3EAFF">over 90 days</text><text x="336" y="172" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.5</text>
+    </g>
+    <g transform="translate(800 140)">
+      <rect width="360" height="186" rx="18" fill="#fff" fill-opacity=".07" stroke="#FB7185" stroke-opacity=".5"/>
+      <text x="22" y="34" font-size="16" font-weight="700" fill="#FDA4AF">C · Contact cooldown</text>
+      <text x="22" y="54" font-size="12.5" fill="#B9C6F7">Don't make retailers feel hounded</text>
+        <text x="22" y="88" font-size="14" fill="#E3EAFF">contacted in last 3 days</text><text x="336" y="88" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">0.5</text>
+        <text x="22" y="109" font-size="14" fill="#E3EAFF">otherwise</text><text x="336" y="109" font-size="14" font-weight="700" fill="#fff" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">1.0</text>
+      <line x1="22" y1="140" x2="338" y2="140" stroke="#fff" stroke-opacity=".14"/>
+      <text x="22" y="162" font-size="12.5" fill="#B9C6F7">Over 90 days late, or silent? The</text>
+      <text x="22" y="180" font-size="12.5" fill="#B9C6F7">account goes to the owner instead.</text>
+    </g>
+  </g>
+</svg>

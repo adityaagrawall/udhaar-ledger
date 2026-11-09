@@ -38,7 +38,8 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: https://img.clerk.com ${clerkSources}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${apiOrigin} ${clerkSources} https://clerk-telemetry.com`,
+  // Clerk's bot-protection probes connect on non-default ports, so connect-src needs `:*` on its hosts.
+  `connect-src 'self' ${apiOrigin} ${clerkSources} https://*.clerk.com:* https://*.clerk.accounts.dev:* https://clerk-telemetry.com`,
   `frame-src https://challenges.cloudflare.com ${clerkSources}`,
   "worker-src 'self' blob:",
   "object-src 'none'",

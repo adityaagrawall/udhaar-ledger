@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-label="Sorted by balance, the first calls go to a self-payer, a dispute and a silent account. Udhaar Ledger sorts the same accounts into lanes.">
+  <defs>
+    <linearGradient id="lbar" x1="0" x2="1"><stop offset="0" stop-color="#F43F5E"/><stop offset="1" stop-color="#FB923C"/></linearGradient>
+    <linearGradient id="rbar" x1="0" x2="1"><stop offset="0" stop-color="#3B5CDB"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+  </defs>
+  <rect width="1200" height="560" rx="26" fill="#F4F6FB"/>
+  <g font-family="'Segoe UI', Inter, 'Helvetica Neue', Arial, sans-serif">
+    <!-- LEFT -->
+    <rect x="28" y="28" width="548" height="504" rx="20" fill="#fff" stroke="#E3E8F2"/>
+    <rect x="28" y="28" width="548" height="8" rx="4" fill="url(#lbar)"/>
+    <text x="56" y="76" font-size="13" font-weight="700" letter-spacing="2" fill="#E11D48">TODAY</text>
+    <text x="56" y="104" font-size="22" font-weight="700" fill="#0B1330">Sorted by balance</text>
+    <text x="56" y="128" font-size="14" fill="#64748B">Print the outstanding report. Call from the top.</text>
+
+    <g font-size="15">
+      <g transform="translate(56 150)">
+        <rect width="492" height="50" rx="12" fill="#FFF1F2"/><circle cx="26" cy="25" r="13" fill="#FDA4AF"/><text x="26" y="30" font-size="13" font-weight="700" fill="#9F1239" text-anchor="middle">1</text>
+        <text x="52" y="30" font-weight="600" fill="#0B1330">Big Self-Payer</text><text x="232" y="30" font-size="12.5" fill="#9F1239">pays on its own</text>
+        <text x="472" y="30" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹2,00,000</text>
+      </g>
+      <g transform="translate(56 208)">
+        <rect width="492" height="50" rx="12" fill="#FFF1F2"/><circle cx="26" cy="25" r="13" fill="#FDA4AF"/><text x="26" y="30" font-size="13" font-weight="700" fill="#9F1239" text-anchor="middle">2</text>
+        <text x="52" y="30" font-weight="600" fill="#0B1330">Sample Traders</text><text x="232" y="30" font-size="12.5" fill="#9F1239">disputed invoice</text>
+        <text x="472" y="30" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹1,80,000</text>
+      </g>
+      <g transform="translate(56 266)">
+        <rect width="492" height="50" rx="12" fill="#FFF1F2"/><circle cx="26" cy="25" r="13" fill="#FDA4AF"/><text x="26" y="30" font-size="13" font-weight="700" fill="#9F1239" text-anchor="middle">3</text>
+        <text x="52" y="30" font-weight="600" fill="#0B1330">Demo Stores</text><text x="232" y="30" font-size="12.5" fill="#9F1239">never answers</text>
+        <text x="472" y="30" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹1,20,000</text>
+      </g>
+      <g transform="translate(56 324)">
+        <rect width="492" height="50" rx="12" fill="#F8FAFC"/><circle cx="26" cy="25" r="13" fill="#E3E8F2"/><text x="26" y="30" font-size="13" font-weight="700" fill="#475569" text-anchor="middle">4</text>
+        <text x="52" y="30" font-weight="600" fill="#334155">Specimen Mart</text><text x="232" y="30" font-size="12.5" fill="#64748B">pays when asked</text>
+        <text x="472" y="30" font-weight="700" fill="#334155" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹95,000</text>
+      </g>
+      <g transform="translate(56 382)">
+        <rect width="492" height="50" rx="12" fill="#F8FAFC"/><circle cx="26" cy="25" r="13" fill="#E3E8F2"/><text x="26" y="30" font-size="13" font-weight="700" fill="#475569" text-anchor="middle">5</text>
+        <text x="52" y="30" font-weight="600" fill="#334155">Placeholder Co</text><text x="232" y="30" font-size="12.5" fill="#64748B">never answers</text>
+        <text x="472" y="30" font-weight="700" fill="#334155" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹75,000</text>
+      </g>
+    </g>
+    <rect x="56" y="450" width="492" height="60" rx="14" fill="#FFE4E6"/>
+    <text x="76" y="476" font-size="14" font-weight="700" fill="#9F1239">The first three calls go to a self-payer, a</text>
+    <text x="76" y="496" font-size="14" font-weight="700" fill="#9F1239">dispute and a silent account.</text>
+
+    <!-- ARROW -->
+    <circle cx="600" cy="280" r="22" fill="#0B1330"/>
+    <path d="M591 280h18m-7-7 7 7-7 7" fill="none" stroke="#FBBF24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- RIGHT -->
+    <rect x="624" y="28" width="548" height="504" rx="20" fill="#fff" stroke="#E3E8F2"/>
+    <rect x="624" y="28" width="548" height="8" rx="4" fill="url(#rbar)"/>
+    <text x="652" y="76" font-size="13" font-weight="700" letter-spacing="2" fill="#2B49BD">UDHAAR LEDGER</text>
+    <text x="652" y="104" font-size="22" font-weight="700" fill="#0B1330">Sorted by recoverable value</text>
+    <text x="652" y="128" font-size="14" fill="#64748B">Same accounts, split into lanes. Each one says why.</text>
+
+    <!-- Call today -->
+    <g transform="translate(652 146)">
+      <rect width="492" height="150" rx="14" fill="#ECFDF5" stroke="#A7F3D0"/>
+      <circle cx="22" cy="24" r="6" fill="#10B981"/><text x="38" y="29" font-size="14" font-weight="700" fill="#065F46">Call today</text>
+      <g font-size="14.5">
+        <text x="22" y="62" font-weight="600" fill="#0B1330">Specimen Mart</text><text x="196" y="62" font-size="12.5" fill="#047857">pays when asked</text><text x="470" y="62" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹95,000</text>
+        <text x="22" y="92" font-weight="600" fill="#0B1330">Big Self-Payer</text><text x="196" y="92" font-size="12.5" fill="#047857">pays on its own</text><text x="470" y="92" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹2,00,000</text>
+        <text x="22" y="122" font-weight="600" fill="#0B1330">Example Kirana</text><text x="196" y="122" font-size="12.5" fill="#047857">missed a promise</text><text x="470" y="122" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹48,000</text>
+      </g>
+    </g>
+    <!-- Escalate -->
+    <g transform="translate(652 306)">
+      <rect width="492" height="98" rx="14" fill="#FFF1F2" stroke="#FECDD3"/>
+      <circle cx="22" cy="24" r="6" fill="#F43F5E"/><text x="38" y="29" font-size="14" font-weight="700" fill="#9F1239">Escalate</text><text x="470" y="29" font-size="12" fill="#BE123C" text-anchor="end">the owner decides: visit, hold supply, settle</text>
+      <g font-size="14.5">
+        <text x="22" y="60" font-weight="600" fill="#0B1330">Demo Stores</text><text x="196" y="60" font-size="12.5" fill="#BE123C">unresponsive</text><text x="470" y="60" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹1,20,000</text>
+        <text x="22" y="85" font-weight="600" fill="#0B1330">Placeholder Co</text><text x="196" y="85" font-size="12.5" fill="#BE123C">unresponsive</text><text x="470" y="85" font-weight="700" fill="#0B1330" text-anchor="end" font-family="'SFMono-Regular', Menlo, Consolas, monospace">₹75,000</text>
+      </g>
+    </g>
+    <!-- Resolve -->
+    <g transform="translate(652 414)">
+      <rect width="492" height="56" rx="14" fill="#FFFBEB" stroke="#FDE68A"/>
+      <circle cx="22" cy="28" r="6" fill="#F59E0B"/><text x="38" y="33" font-size="14" font-weight="700" fill="#92400E">Resolve</text>
+      <text x="130" y="33" font-size="14.5" font-weight="600" fill="#0B1330">Sample Traders</text><text x="470" y="33" font-size="12.5" fill="#B45309" text-anchor="end">disputed: not chased until cleared</text>
+    </g>
+    <text x="652" y="500" font-size="12" font-style="italic" fill="#64748B">Illustrative accounts from the case study. Big Self-Payer still lands in Call today:</text>
+    <text x="652" y="518" font-size="12" font-style="italic" fill="#64748B">a documented weakness of the score that real outcome data must settle.</text>
+  </g>
+</svg>
