@@ -12,15 +12,19 @@ function DemoButton() {
   const { isLoaded, signIn, setActive } = useSignIn();
   const router = useRouter();
   const params = useSearchParams();
-  const [enabled, setEnabled] = useState(false);
+  // Shown by default. Only an explicit "demo_enabled: false" from the API hides it, so a slow or
+  // failed config request (e.g. the free-tier API waking from sleep) never makes the button vanish.
+  const [enabled, setEnabled] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch(`${API_BASE}/auth/config`)
       .then((r) => r.json())
-      .then((c) => setEnabled(Boolean(c.demo_enabled)))
-      .catch(() => setEnabled(false));
+      .then((c) => {
+        if (c.demo_enabled === false) setEnabled(false);
+      })
+      .catch(() => {});
   }, []);
 
   if (!enabled) return null;
@@ -38,7 +42,12 @@ function DemoButton() {
       await setActive({ session: attempt.createdSessionId });
       router.push(params.get("redirect_url") || "/today");
     } catch (e: any) {
-      setError(e?.errors?.[0]?.longMessage || e.message || "Demo is unavailable right now.");
+      const network = e instanceof TypeError;
+      setError(
+        e?.errors?.[0]?.longMessage ||
+          (network ? "The server is waking up. Please try again in a few seconds." : e.message) ||
+          "Demo is unavailable right now."
+      );
       setBusy(false);
     }
   };
