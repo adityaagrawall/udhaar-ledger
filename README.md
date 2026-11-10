@@ -8,6 +8,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/adityaagrawall/udhaar-ledger/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white)](https://github.com/adityaagrawall/udhaar-ledger/actions/workflows/ci.yml)
 [![Security](https://img.shields.io/github/actions/workflow/status/adityaagrawall/udhaar-ledger/security.yml?branch=main&style=for-the-badge&label=SECURITY&logo=github&logoColor=white)](https://github.com/adityaagrawall/udhaar-ledger/actions/workflows/security.yml)
 [![License](https://img.shields.io/badge/LICENSE-MIT-F59E0B?style=for-the-badge)](LICENSE)
+[![Case study](https://img.shields.io/badge/CASE_STUDY-READ_THE_PDF-3B5CDB?style=for-the-badge&logo=readthedocs&logoColor=white)](docs/Udhaar_Ledger_Case_Study.pdf)
 
 **[The problem](#-the-problem)** &nbsp;·&nbsp; **[The idea](#-the-idea)** &nbsp;·&nbsp; **[How it works](#-how-it-works)** &nbsp;·&nbsp; **[Screenshots](#-see-it)** &nbsp;·&nbsp; **[Features](#-features)** &nbsp;·&nbsp; **[Run it](#-run-it-locally)** &nbsp;·&nbsp; **[Deploy](#-deploy)** &nbsp;·&nbsp; **[Security](#-security)**
 
@@ -292,7 +293,7 @@ Seed a fresh database once with `DATABASE_URL=<neon url> uv run python scripts/g
 
 ## 🧭 Roadmap
 
-Built in the order the case study recommends: baseline first, then the list, then learning from outcomes.
+Built in the order the [case study](docs/Udhaar_Ledger_Case_Study.pdf) recommends: baseline first, then the list, then learning from outcomes.
 
 - [x] **Stage 0 · Baseline** — importer, aging against each invoice's own terms, deterministic balances
 - [x] **Stage 2 · Live list** — lanes, plain-language reasons, promise and dispute logging
