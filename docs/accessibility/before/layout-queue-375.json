@@ -1,0 +1,98 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 77,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Udhaar Ledger home",
+      "w": 135,
+      "h": 37
+    },
+    {
+      "tag": "button",
+      "name": "Open navigation",
+      "w": 36,
+      "h": 36
+    },
+    {
+      "tag": "a",
+      "name": "Start with Today's list →",
+      "w": 133,
+      "h": 16
+    },
+    {
+      "tag": "button",
+      "name": "Refresh data",
+      "w": 40,
+      "h": 36
+    },
+    {
+      "tag": "a",
+      "name": "Today",
+      "w": 38,
+      "h": 17
+    },
+    {
+      "tag": "button",
+      "name": "Export queue",
+      "w": 131,
+      "h": 40
+    },
+    {
+      "tag": "input",
+      "name": "Search customer or invoice number",
+      "w": 309,
+      "h": 40
+    },
+    {
+      "tag": "select",
+      "name": "AllBrokenActive",
+      "w": 105,
+      "h": 40
+    },
+    {
+      "tag": "select",
+      "name": "All tiersHighMediumLow",
+      "w": 110,
+      "h": 40
+    },
+    {
+      "tag": "select",
+      "name": "Any15+ days30+ days60+ days90+ days",
+      "w": 114,
+      "h": 40
+    },
+    {
+      "tag": "button",
+      "name": "INV-2024-00195",
+      "w": 101,
+      "h": 16
+    },
+    {
+      "tag": "a",
+      "name": "Saxena Distributors",
+      "w": 71,
+      "h": 35
+    },
+    {
+      "tag": "button",
+      "name": "Remind",
+      "w": 80,
+      "h": 32
+    },
+    {
+      "tag": "button",
+      "name": "INV-2024-00243",
+      "w": 101,
+      "h": 16
+    },
+    {
+      "tag": "a",
+      "name": "Saxena Distributors",
+      "w": 71,
+      "h": 35
+    }
+  ]
+}

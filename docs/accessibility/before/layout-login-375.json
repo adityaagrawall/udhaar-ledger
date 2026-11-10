@@ -1,0 +1,50 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 7,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "button",
+      "name": "Continue with Google",
+      "w": 249,
+      "h": 31
+    },
+    {
+      "tag": "input",
+      "name": "Enter your email address",
+      "w": 249,
+      "h": 31
+    },
+    {
+      "tag": "input",
+      "name": "Enter your password",
+      "w": 198,
+      "h": 31
+    },
+    {
+      "tag": "button",
+      "name": "Show password",
+      "w": 40,
+      "h": 24
+    },
+    {
+      "tag": "button",
+      "name": "Continue",
+      "w": 249,
+      "h": 32
+    },
+    {
+      "tag": "a",
+      "name": "Sign up",
+      "w": 47,
+      "h": 19
+    },
+    {
+      "tag": "a",
+      "name": "Clerk logo",
+      "w": 48,
+      "h": 14
+    }
+  ]
+}
