@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,6 +20,7 @@ import {
 import { logout } from "@/lib/api";
 import { useMe } from "@/components/Providers";
 import Logo, { LogoMark } from "@/components/Logo";
+import { useDialogBehavior } from "@/components/useDialogBehavior";
 
 interface NavItem {
   href: string;
@@ -64,22 +65,23 @@ function initials(name?: string) {
 function NavList({ pathname, onNavigate }: { pathname: string; onNavigate: () => void }) {
   return (
     <div className="flex-1 px-3 py-4 overflow-y-auto space-y-6">
+      <nav aria-label="Main" className="space-y-6">
       {SECTIONS.map((section) => (
         <div key={section.title}>
-          <div className="px-3 mb-2 text-[10px] font-mono font-medium tracking-[0.16em] text-sidebar-muted/80 uppercase">
+          <p id={`nav-${section.title}`} className="px-3 mb-2 text-[10px] font-mono font-medium tracking-[0.16em] text-sidebar-muted uppercase">
             {section.title}
-          </div>
-          <nav className="space-y-0.5" aria-label={section.title}>
+          </p>
+          <ul className="space-y-0.5" aria-labelledby={`nav-${section.title}`}>
             {section.items.map((item) => {
               const Icon = item.icon;
               const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
+                <li key={item.href}>
                 <Link
-                  key={item.href}
                   href={item.href}
                   onClick={onNavigate}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-colors duration-150 ${
+                  className={`relative flex items-center justify-between gap-2 px-3 py-3 min-h-11 rounded-xl text-[13px] font-medium transition-colors duration-150 ${
                     active ? "text-white" : "text-sidebar-muted hover:text-white hover:bg-sidebar-hover/70"
                   }`}
                 >
@@ -91,7 +93,7 @@ function NavList({ pathname, onNavigate }: { pathname: string; onNavigate: () =>
                     />
                   )}
                   <span className="relative flex items-center gap-3">
-                    <Icon className={`w-[18px] h-[18px] ${active ? "text-accent-300" : ""}`} />
+                    <Icon aria-hidden className={`w-[18px] h-[18px] ${active ? "text-accent-300" : ""}`} />
                     {item.label}
                   </span>
                   {item.tag && (
@@ -106,11 +108,13 @@ function NavList({ pathname, onNavigate }: { pathname: string; onNavigate: () =>
                     </span>
                   )}
                 </Link>
+                </li>
               );
             })}
-          </nav>
+          </ul>
         </div>
       ))}
+      </nav>
 
       <div className="mx-1 p-3.5 rounded-xl border border-sidebar-border bg-sidebar-surface/60 space-y-1.5">
         <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-200">
@@ -125,9 +129,52 @@ function NavList({ pathname, onNavigate }: { pathname: string; onNavigate: () =>
   );
 }
 
+function MobileDrawer({ pathname, onClose, profile }: { pathname: string; onClose: () => void; profile: React.ReactNode }) {
+  const panel = useRef<HTMLElement>(null);
+  useDialogBehavior(panel, onClose);
+  return (
+    <>
+      <motion.div
+        className="fixed inset-0 z-40 bg-ink-900/70 backdrop-blur-sm md:hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      />
+      <motion.aside
+        ref={panel}
+        id="mobile-navigation"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
+        tabIndex={-1}
+        className="on-dark fixed z-50 top-0 left-0 h-full w-72 flex flex-col bg-sidebar text-slate-300 md:hidden"
+        initial={{ x: "-100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={{ type: "tween", duration: 0.22 }}
+      >
+        <div className="px-5 h-14 flex items-center justify-between border-b border-sidebar-border">
+          <LogoMark size={30} />
+          <button
+            onClick={onClose}
+            className="icon-only min-h-11 min-w-11 flex items-center justify-center rounded-lg text-sidebar-muted hover:text-white"
+            aria-label="Close navigation"
+          >
+            <X aria-hidden className="w-5 h-5" />
+          </button>
+        </div>
+        <NavList pathname={pathname} onNavigate={onClose} />
+        {profile}
+      </motion.aside>
+    </>
+  );
+}
+
 export default function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const { me } = useMe();
 
   useEffect(() => setOpen(false), [pathname]);
@@ -151,8 +198,7 @@ export default function Sidebar() {
         <button
           onClick={() => logout()}
           aria-label="Sign out"
-          title="Sign out"
-          className="p-2 text-sidebar-muted hover:text-rose-300 hover:bg-sidebar-hover rounded-lg transition-colors"
+          className="icon-only p-2.5 min-h-11 min-w-11 flex items-center justify-center text-sidebar-muted hover:text-rose-300 hover:bg-sidebar-hover rounded-lg transition-colors"
         >
           <LogOut className="w-4 h-4" />
         </button>
@@ -163,23 +209,26 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile bar */}
-      <div className="md:hidden flex items-center justify-between px-4 h-14 bg-sidebar text-white border-b border-sidebar-border sticky top-0 z-40">
-        <Link href="/" aria-label="Udhaar Ledger home">
+      <div className="on-dark md:hidden flex items-center justify-between px-4 h-14 bg-sidebar text-white border-b border-sidebar-border sticky top-0 z-40">
+        <Link href="/" aria-label="Udhaar Ledger home" className="min-h-11 inline-flex items-center">
           <Logo size={30} />
         </Link>
         <button
+          ref={menuButton}
           onClick={() => setOpen(true)}
-          className="p-2 rounded-lg text-sidebar-muted hover:text-white hover:bg-sidebar-hover"
+          className="icon-only min-h-11 min-w-11 flex items-center justify-center rounded-lg text-sidebar-muted hover:text-white hover:bg-sidebar-hover"
           aria-label="Open navigation"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
         >
           <Menu className="w-5 h-5" />
         </button>
       </div>
 
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex sticky top-0 h-screen w-64 flex-shrink-0 flex-col bg-sidebar text-slate-300 border-r border-sidebar-border">
+      <aside aria-label="Sidebar" className="on-dark hidden md:flex sticky top-0 h-screen w-64 flex-shrink-0 flex-col bg-sidebar text-slate-300 border-r border-sidebar-border">
         <div className="px-5 h-16 flex items-center border-b border-sidebar-border">
-          <Link href="/" aria-label="Udhaar Ledger home">
+          <Link href="/">
             <Logo size={34} tagline />
           </Link>
         </div>
@@ -188,39 +237,7 @@ export default function Sidebar() {
       </aside>
 
       {/* Mobile drawer */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              className="fixed inset-0 z-40 bg-ink-900/70 backdrop-blur-sm md:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
-            />
-            <motion.aside
-              className="fixed z-50 top-0 left-0 h-full w-72 flex flex-col bg-sidebar text-slate-300 md:hidden"
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "tween", duration: 0.22 }}
-            >
-              <div className="px-5 h-14 flex items-center justify-between border-b border-sidebar-border">
-                <LogoMark size={30} />
-                <button
-                  onClick={() => setOpen(false)}
-                  className="p-2 rounded-lg text-sidebar-muted hover:text-white"
-                  aria-label="Close navigation"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <NavList pathname={pathname} onNavigate={() => setOpen(false)} />
-              {profile}
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{open && <MobileDrawer pathname={pathname} onClose={() => setOpen(false)} profile={profile} />}</AnimatePresence>
     </>
   );
 }

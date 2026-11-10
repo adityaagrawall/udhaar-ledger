@@ -18,7 +18,7 @@ import {
 import Navbar from "@/components/Navbar";
 import { PageBody, AnimatedNumber } from "@/components/ui";
 import { apiFetch, formatINR } from "@/lib/api";
-import { useMe } from "@/components/Providers";
+import { useAnnounce, useMe } from "@/components/Providers";
 
 type LaneKey = "call" | "escalate" | "resolve" | "message";
 
@@ -74,8 +74,9 @@ const PATTERN_LABEL: Record<string, string> = {
   no_clear_pattern: "No clear pattern",
 };
 
-function AccountRow({ a, edge, onClearDispute }: { a: Account; edge: string; onClearDispute: (id: string) => void }) {
+function AccountRow({ a, edge, laneTitle, onClearDispute }: { a: Account; edge: string; laneTitle: string; onClearDispute: (id: string) => void }) {
   const [open, setOpen] = useState(false);
+  const whyId = `why-${a.customer_id}`;
   const { canEdit } = useMe();
   return (
     <motion.li
@@ -87,13 +88,14 @@ function AccountRow({ a, edge, onClearDispute }: { a: Account; edge: string; onC
       className="relative"
     >
       <span className={`absolute left-0 top-3 bottom-3 w-[3px] rounded-r ${edge}`} aria-hidden />
+      <span className="sr-only">{laneTitle} lane. </span>
       <div className="pl-5 pr-4 py-4 flex flex-col md:flex-row md:items-start justify-between gap-3">
         <div className="min-w-0 space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
-            <Link href={`/customers/${a.customer_id}`} className="text-sm font-semibold text-ink-900 hover:text-brand-600">
+            <Link href={`/customers/${a.customer_id}`} className="text-sm font-semibold text-ink-900 hover:text-brand-700 hover:underline inline-flex items-center min-h-11 md:min-h-0">
               {a.customer_name}
             </Link>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-background text-slate-600 border border-border">
+            <span className="text-[11px] px-2 py-0.5 rounded-full bg-background text-slate-700 border border-border">
               {PATTERN_LABEL[a.pattern] ?? a.pattern}
             </span>
           </div>
@@ -103,18 +105,20 @@ function AccountRow({ a, edge, onClearDispute }: { a: Account; edge: string; onC
           <button
             onClick={() => setOpen(!open)}
             aria-expanded={open}
-            className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-600 hover:text-brand-800"
+            aria-controls={whyId}
+            className="inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-800 hover:underline"
           >
-            Why this lane
-            <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
+            Why this lane<span className="sr-only"> for {a.customer_name}</span>
+            <ChevronDown aria-hidden className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
           </button>
           <AnimatePresence initial={false}>
             {open && (
               <motion.p
+                id={whyId}
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="text-xs text-slate-500 overflow-hidden"
+                className="text-xs text-slate-600 overflow-hidden"
               >
                 {a.what_would_change}
               </motion.p>
@@ -124,14 +128,14 @@ function AccountRow({ a, edge, onClearDispute }: { a: Account; edge: string; onC
 
         <div className="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-2 flex-shrink-0">
           <span className="text-lg font-semibold font-mono tabular text-ink-900">{formatINR(a.overdue_amount)}</span>
-          <span className="text-[11px] text-slate-500">
+          <span className="text-xs text-slate-600">
             {a.open_invoice_count} overdue · oldest {a.oldest_days_past_due}d
           </span>
           {canEdit && a.disputed_invoice_ids.map((id, i) => (
             <button
               key={id}
               onClick={() => onClearDispute(id)}
-              className="text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border border-border bg-white hover:bg-background"
+              className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-border bg-white hover:bg-background"
             >
               Clear dispute {a.disputed_invoice_numbers[i]}
             </button>
@@ -147,12 +151,17 @@ export default function TodayPage() {
   const [slots, setSlots] = useState(5);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const announce = useAnnounce();
 
   const load = async () => {
     setLoading(true);
     setError(null);
     try {
-      setData(await apiFetch<TodayData>(`/collections/today?call_slots=${slots}`));
+      const res = await apiFetch<TodayData>(`/collections/today?call_slots=${slots}`);
+      setData(res);
+      announce(
+        `Today's list updated: ${res.call.length} to call, ${res.escalate.length} to escalate, ${res.resolve.length} to resolve, ${res.message.length} to message.`
+      );
     } catch (e: any) {
       setError(e.message || "Failed to load today's list");
     } finally {
@@ -188,7 +197,7 @@ export default function TodayPage() {
       <PageBody>
         {data?.data_stale && (
           <div role="status" className="flex items-start gap-2.5 p-3.5 rounded-xl border border-accent-200 bg-accent-50 text-xs text-accent-700">
-            <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <AlertTriangle aria-hidden className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <span>
               {data.days_since_last_receipt === null
                 ? "No receipts have been entered yet."
@@ -209,8 +218,8 @@ export default function TodayPage() {
                   href={`#lane-${l.key}`}
                   className={`rounded-xl px-3.5 py-3 ring-1 ring-inset transition-transform hover:-translate-y-0.5 ${l.chip}`}
                 >
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold whitespace-nowrap">
-                    <l.icon className="w-3.5 h-3.5 flex-shrink-0" /> {l.title}
+                  <div className="flex items-center gap-1.5 text-xs font-semibold whitespace-nowrap">
+                    <l.icon aria-hidden className="w-3.5 h-3.5 flex-shrink-0" /> {l.title}
                   </div>
                   <div className="mt-1 text-2xl font-semibold font-mono">
                     <AnimatedNumber value={n} />
@@ -222,33 +231,33 @@ export default function TodayPage() {
 
           <div className="flex items-center gap-3 lg:pl-5 lg:border-l border-border">
             <div>
-              <p className="text-xs font-semibold text-ink-900">Calls the team can make today</p>
-              <p className="text-[11px] text-slate-500">Sets the size of the Call lane</p>
+              <p id="slots-label" className="text-xs font-semibold text-ink-900">Calls the team can make today</p>
+              <p className="text-xs text-slate-600">Sets the size of the Call lane</p>
             </div>
-            <div className="inline-flex items-center rounded-xl border border-border bg-white">
+            <div role="group" aria-labelledby="slots-label" className="inline-flex items-center rounded-xl border border-border bg-white">
               <button
                 aria-label="Fewer calls"
                 onClick={() => setSlots((s) => Math.max(1, s - 1))}
-                className="w-9 h-9 flex items-center justify-center text-slate-600 hover:bg-background rounded-l-xl"
+                className="icon-only w-11 h-11 md:w-9 md:h-9 flex items-center justify-center text-slate-600 hover:bg-background rounded-l-xl"
               >
-                <Minus className="w-4 h-4" />
+                <Minus aria-hidden className="w-4 h-4" />
               </button>
-              <span className="w-9 text-center text-sm font-semibold font-mono tabular" aria-live="polite">
+              <span className="w-9 text-center text-sm font-semibold font-mono tabular" role="status" aria-label={`${slots} calls`}>
                 {slots}
               </span>
               <button
                 aria-label="More calls"
                 onClick={() => setSlots((s) => Math.min(50, s + 1))}
-                className="w-9 h-9 flex items-center justify-center text-slate-600 hover:bg-background rounded-r-xl"
+                className="icon-only w-11 h-11 md:w-9 md:h-9 flex items-center justify-center text-slate-600 hover:bg-background rounded-r-xl"
               >
-                <Plus className="w-4 h-4" />
+                <Plus aria-hidden className="w-4 h-4" />
               </button>
             </div>
           </div>
         </div>
 
         <div className="flex items-start gap-2 text-xs text-slate-500 max-w-3xl">
-          <Info className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+          <Info aria-hidden className="w-4 h-4 text-slate-500 mt-0.5 flex-shrink-0" />
           <span>
             Accounts sit in lanes, not numbered ranks, because the order inside a lane is only stable as a tier. Weights are assumptions not yet validated on real outcomes. Nothing is sent automatically.
           </span>
@@ -258,7 +267,7 @@ export default function TodayPage() {
 
         {!loading && data && total === 0 && (
           <div className="surface py-16 text-center">
-            <CheckCircle2 className="w-9 h-9 text-emerald-500 mx-auto" />
+            <CheckCircle2 aria-hidden className="w-9 h-9 text-emerald-600 mx-auto" />
             <p className="mt-3 text-sm font-semibold text-ink-900">All clear</p>
             <p className="text-xs text-slate-500 mt-1">No overdue accounts need attention today.</p>
           </div>
@@ -268,16 +277,16 @@ export default function TodayPage() {
           const items = data?.[lane.key] ?? [];
           if (data && items.length === 0 && total > 0 && lane.key !== "call") return null;
           return (
-            <section id={`lane-${lane.key}`} key={lane.key} className="surface overflow-hidden scroll-mt-24">
+            <section id={`lane-${lane.key}`} key={lane.key} aria-labelledby={`lane-${lane.key}-title`} aria-busy={loading} className="surface overflow-hidden scroll-mt-24">
               <header className="flex items-center justify-between gap-3 px-5 py-3.5 border-b border-border-light">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ring-1 ring-inset text-xs font-semibold ${lane.chip}`}>
-                    <lane.icon className="w-3.5 h-3.5" />
+                  <h2 id={`lane-${lane.key}-title`} className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ring-1 ring-inset text-xs font-semibold ${lane.chip}`}>
+                    <lane.icon aria-hidden className="w-3.5 h-3.5" />
                     {lane.title}
-                  </span>
-                  <span className="text-xs text-slate-500">{lane.hint}</span>
+                  </h2>
+                  <span className="text-xs text-slate-600">{lane.hint}</span>
                 </div>
-                <span className="text-xs font-semibold text-slate-600 font-mono">{items.length}</span>
+                <span className="text-xs font-semibold text-slate-700 font-mono" aria-label={`${items.length} ${items.length === 1 ? "account" : "accounts"}`}>{items.length}</span>
               </header>
               {loading && !data ? (
                 <div className="p-5 space-y-3">
@@ -286,12 +295,12 @@ export default function TodayPage() {
                   ))}
                 </div>
               ) : items.length === 0 ? (
-                <p className="px-5 py-8 text-xs text-slate-400 text-center">Nothing here today.</p>
+                <p className="px-5 py-8 text-xs text-slate-600 text-center">Nothing here today.</p>
               ) : (
                 <ul className="divide-y divide-border-light">
                   <AnimatePresence initial={false}>
                     {items.map((a) => (
-                      <AccountRow key={a.customer_id} a={a} edge={lane.edge} onClearDispute={clearDispute} />
+                      <AccountRow key={a.customer_id} a={a} edge={lane.edge} laneTitle={lane.title} onClearDispute={clearDispute} />
                     ))}
                   </AnimatePresence>
                 </ul>
@@ -300,9 +309,9 @@ export default function TodayPage() {
           );
         })}
 
-        <p className="text-[11px] text-slate-400">
+        <p className="text-xs text-slate-600">
           Method: {data?.method}. For invoice-level reminders and promise tracking, use the{" "}
-          <Link href="/queue" className="underline">invoice queue</Link>.
+          <Link href="/queue" className="underline text-brand-700">invoice queue</Link>.
         </p>
       </PageBody>
     </div>

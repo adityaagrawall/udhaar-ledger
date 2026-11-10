@@ -1,0 +1,182 @@
+{
+  "base": "http://localhost:3001",
+  "startedAt": "2026-11-10T13:58:21.590Z",
+  "tools": {
+    "lighthouse": "13.6.0",
+    "axeCore": "4.14.0",
+    "playwright": "1.65.0",
+    "chromium": "151.0.7922.34"
+  },
+  "wcagTags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa"
+  ],
+  "pages": [
+    {
+      "id": "login",
+      "label": "Demo login",
+      "url": "http://localhost:3001/login",
+      "kind": "page",
+      "viewport": "1280"
+    },
+    {
+      "id": "login",
+      "label": "Demo login",
+      "url": "http://localhost:3001/login",
+      "kind": "page",
+      "viewport": "375"
+    },
+    {
+      "id": "overview",
+      "label": "Landing (Overview)",
+      "url": "http://localhost:3001/",
+      "kind": "page",
+      "viewport": "1280"
+    },
+    {
+      "id": "overview",
+      "label": "Landing (Overview)",
+      "url": "http://localhost:3001/",
+      "kind": "page",
+      "viewport": "375"
+    },
+    {
+      "id": "today",
+      "label": "Daily call list",
+      "url": "http://localhost:3001/today",
+      "kind": "page",
+      "viewport": "1280"
+    },
+    {
+      "id": "today",
+      "label": "Daily call list",
+      "url": "http://localhost:3001/today",
+      "kind": "page",
+      "viewport": "375"
+    },
+    {
+      "id": "account",
+      "label": "Account detail",
+      "url": "http://localhost:3001/customers/6e0d1138-443f-4bd9-8b4b-81a0d30a12f9",
+      "kind": "page",
+      "viewport": "1280"
+    },
+    {
+      "id": "account",
+      "label": "Account detail",
+      "url": "http://localhost:3001/customers/6e0d1138-443f-4bd9-8b4b-81a0d30a12f9",
+      "kind": "page",
+      "viewport": "375"
+    },
+    {
+      "id": "queue",
+      "label": "Invoice queue (reminders)",
+      "url": "http://localhost:3001/queue",
+      "kind": "page",
+      "viewport": "1280"
+    },
+    {
+      "id": "queue",
+      "label": "Invoice queue (reminders)",
+      "url": "http://localhost:3001/queue",
+      "kind": "page",
+      "viewport": "375"
+    },
+    {
+      "id": "today-why-open",
+      "label": "Daily list, 'Why this lane' expanded",
+      "url": "http://localhost:3001/today",
+      "kind": "state",
+      "viewport": "1280"
+    },
+    {
+      "id": "today-why-open",
+      "label": "Daily list, 'Why this lane' expanded",
+      "url": "http://localhost:3001/today",
+      "kind": "state",
+      "viewport": "375"
+    },
+    {
+      "id": "reminder-dialog",
+      "label": "Reminder approval dialog",
+      "url": "http://localhost:3001/queue",
+      "kind": "state",
+      "viewport": "1280"
+    },
+    {
+      "id": "reminder-dialog",
+      "label": "Reminder approval dialog",
+      "url": "http://localhost:3001/queue",
+      "kind": "state",
+      "viewport": "375"
+    },
+    {
+      "id": "mobile-nav-open",
+      "label": "Mobile navigation drawer open",
+      "url": "http://localhost:3001/today",
+      "kind": "state",
+      "viewport": "375"
+    }
+  ],
+  "reflow": {
+    "overview": {
+      "320": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 11
+      },
+      "375": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "640": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      }
+    },
+    "today": {
+      "320": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "375": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "640": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      }
+    },
+    "account": {
+      "320": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "375": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "640": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      }
+    },
+    "queue": {
+      "320": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "375": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      },
+      "640": {
+        "documentOverflowPx": 0,
+        "mainOverflowPx": 0
+      }
+    }
+  },
+  "finishedAt": "2026-11-10T14:02:37.379Z"
+}

@@ -1,0 +1,20 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 2,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Sign up",
+      "w": 47,
+      "h": 19
+    },
+    {
+      "tag": "a",
+      "name": "Clerk logo",
+      "w": 48,
+      "h": 14
+    }
+  ]
+}

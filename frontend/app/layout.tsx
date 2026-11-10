@@ -33,8 +33,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <html lang="en" className={`${sans.variable} ${mono.variable}`}>
         <body className="min-h-screen bg-background text-foreground flex flex-col md:flex-row antialiased font-sans">
           <Providers>
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
             <Sidebar />
-            <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            <main id="main-content" tabIndex={-1} className="flex-1 flex flex-col min-w-0 overflow-y-auto">
               <DemoBanner />
               {children}
             </main>

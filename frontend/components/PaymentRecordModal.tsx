@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Modal, { ModalTitle } from "@/components/Modal";
 import { useState, useEffect } from "react";
 import {
   X,
@@ -214,21 +214,7 @@ export default function PaymentRecordModal({
   const selectedCustomer = customers.find((c) => c.id === selectedCustomerId);
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.15 }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        className="bg-white rounded-3xl shadow-dropdown max-w-2xl w-full border border-slate-200 overflow-hidden flex flex-col my-8"
-        initial={{ opacity: 0, y: 18, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-      >
+    <Modal onClose={onClose} backdropClassName="overflow-y-auto" className="bg-white rounded-3xl shadow-dropdown max-w-2xl w-full border border-slate-200 overflow-hidden flex flex-col my-8">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-slate-50/70">
           <div className="flex items-center space-x-3">
@@ -236,7 +222,7 @@ export default function PaymentRecordModal({
               <CreditCard className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">Record Payment & Allocate</h3>
+              <ModalTitle className="font-bold text-slate-900 text-sm">Record Payment & Allocate</ModalTitle>
               <p className="text-[11px] text-slate-500">
                 Post customer remittance (NEFT/RTGS/UPI/Cheque) and match against open invoices
               </p>
@@ -380,10 +366,10 @@ export default function PaymentRecordModal({
                 <table className="w-full text-left text-xs">
                   <thead className="bg-slate-50 text-[10px] uppercase font-semibold text-slate-500 sticky top-0">
                     <tr>
-                      <th className="py-2 px-3">Invoice</th>
-                      <th className="py-2 px-3">Due Date</th>
-                      <th className="py-2 px-3 text-right">Outstanding</th>
-                      <th className="py-2 px-3 text-right w-36">Allocate (₹)</th>
+                      <th scope="col" className="py-2 px-3">Invoice</th>
+                      <th scope="col" className="py-2 px-3">Due Date</th>
+                      <th scope="col" className="py-2 px-3 text-right">Outstanding</th>
+                      <th scope="col" className="py-2 px-3 text-right w-36">Allocate (₹)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -498,7 +484,6 @@ export default function PaymentRecordModal({
             </button>
           </div>
         </form>
-      </motion.div>
-    </motion.div>
+      </Modal>
   );
 }

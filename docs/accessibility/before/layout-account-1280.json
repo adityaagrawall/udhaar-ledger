@@ -1,0 +1,98 @@
+{
+  "viewportWidth": 1280,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 18,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Udhaar Ledger home",
+      "w": 206,
+      "h": 41
+    },
+    {
+      "tag": "a",
+      "name": "Overview",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "TodayLanes",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Invoice queue",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Receivables ledger",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Customers",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Import",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Analytics",
+      "w": 231,
+      "h": 40
+    },
+    {
+      "tag": "button",
+      "name": "Sign out",
+      "w": 32,
+      "h": 32
+    },
+    {
+      "tag": "a",
+      "name": "Start with Today's list →",
+      "w": 133,
+      "h": 16
+    },
+    {
+      "tag": "a",
+      "name": "Customers",
+      "w": 52,
+      "h": 17
+    },
+    {
+      "tag": "button",
+      "name": "Refresh data",
+      "w": 88,
+      "h": 36
+    },
+    {
+      "tag": "button",
+      "name": "Export",
+      "w": 82,
+      "h": 36
+    },
+    {
+      "tag": "button",
+      "name": "Draft reminder",
+      "w": 121,
+      "h": 40
+    },
+    {
+      "tag": "button",
+      "name": "Open invoices (1)",
+      "w": 116,
+      "h": 32
+    }
+  ]
+}

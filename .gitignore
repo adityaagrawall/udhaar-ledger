@@ -36,3 +36,7 @@ Thumbs.db
 backend/data/
 test_ibm.csv
 backend/app/ml/artifacts/*.pkl
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/

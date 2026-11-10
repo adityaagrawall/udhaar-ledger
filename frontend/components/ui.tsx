@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 
 /** Standard page body: consistent gutters and max width. */
 export function PageBody({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -41,7 +41,7 @@ export function SectionTitle({
   return (
     <div className="flex items-start justify-between gap-3 mb-4">
       <div>
-        <h3 className="text-sm font-semibold text-ink-900 tracking-tight">{title}</h3>
+        <h2 className="text-sm font-semibold text-ink-900 tracking-tight">{title}</h2>
         {hint && <p className="text-xs text-slate-500 mt-0.5">{hint}</p>}
       </div>
       {right}
@@ -59,12 +59,18 @@ export function AnimatedNumber({
   format?: (n: number) => string;
   className?: string;
 }) {
-  const mv = useMotionValue(0);
+  const reduce = useReducedMotion();
+  const mv = useMotionValue(reduce ? value : 0);
   const text = useTransform(mv, (v) => format(v));
   useEffect(() => {
+    // People who ask for reduced motion get the final figure straight away, with no count-up.
+    if (reduce) {
+      mv.set(value);
+      return;
+    }
     const controls = animate(mv, value, { duration: 0.9, ease: "easeOut" });
     return () => controls.stop();
-  }, [value, mv]);
+  }, [value, mv, reduce]);
   return <motion.span className={`tabular ${className}`}>{text}</motion.span>;
 }
 
@@ -143,7 +149,7 @@ export function SearchInput({
   return (
     <label className="relative flex-1 w-full xl:max-w-md">
       <span className="sr-only">{label}</span>
-      <svg aria-hidden className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+      <svg aria-hidden focusable="false" className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
       <input
         type="search"
         value={value}
@@ -196,14 +202,14 @@ export function Segmented<T extends string>({
   label: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex p-1 rounded-xl bg-background border border-border">
+    <div role="group" aria-label={label} className="inline-flex p-1 rounded-xl bg-background border border-border">
       {options.map((o) => {
         const active = o.value === value;
         return (
           <button
             key={o.value}
-            role="radio"
-            aria-checked={active}
+            type="button"
+            aria-pressed={active}
             onClick={() => onChange(o.value)}
             className={`relative h-8 px-3 rounded-lg text-xs font-semibold transition-colors ${
               active ? "text-ink-900" : "text-slate-500 hover:text-ink-900"
@@ -242,8 +248,8 @@ export function Pagination({
   const btn =
     "h-9 px-3 rounded-xl border border-border bg-white hover:bg-background text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed";
   return (
-    <div className="px-5 py-3 border-t border-border-light flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-      <span>
+    <nav aria-label={`${noun} pagination`} className="px-5 py-3 border-t border-border-light flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <span aria-live="polite">
         <span className="font-semibold text-ink-900 tabular">{total.toLocaleString("en-IN")}</span> {noun} · page{" "}
         <span className="tabular">{page}</span> of <span className="tabular">{totalPages}</span>
       </span>
@@ -255,7 +261,7 @@ export function Pagination({
           Next
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 

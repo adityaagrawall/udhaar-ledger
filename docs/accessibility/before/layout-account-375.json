@@ -1,0 +1,62 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 9,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Udhaar Ledger home",
+      "w": 135,
+      "h": 37
+    },
+    {
+      "tag": "button",
+      "name": "Open navigation",
+      "w": 36,
+      "h": 36
+    },
+    {
+      "tag": "a",
+      "name": "Start with Today's list →",
+      "w": 133,
+      "h": 16
+    },
+    {
+      "tag": "button",
+      "name": "Refresh data",
+      "w": 40,
+      "h": 36
+    },
+    {
+      "tag": "button",
+      "name": "Draft reminder",
+      "w": 137,
+      "h": 40
+    },
+    {
+      "tag": "button",
+      "name": "Open invoices (1)",
+      "w": 106,
+      "h": 32
+    },
+    {
+      "tag": "button",
+      "name": "Statement (11)",
+      "w": 93,
+      "h": 32
+    },
+    {
+      "tag": "button",
+      "name": "Promises (0)",
+      "w": 84,
+      "h": 32
+    },
+    {
+      "tag": "button",
+      "name": "Draft reminder for INV-2024-00014",
+      "w": 32,
+      "h": 32
+    }
+  ]
+}

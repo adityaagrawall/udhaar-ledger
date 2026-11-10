@@ -1,0 +1,14 @@
+{
+  "axeVersion": "4.14.0",
+  "url": "http://localhost:3001/customers/6e0d1138-443f-4bd9-8b4b-81a0d30a12f9",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 2
+    }
+  ],
+  "passes": 27
+}

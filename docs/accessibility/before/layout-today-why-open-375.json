@@ -1,0 +1,98 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 243,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Udhaar Ledger home",
+      "w": 135,
+      "h": 37
+    },
+    {
+      "tag": "button",
+      "name": "Open navigation",
+      "w": 36,
+      "h": 36
+    },
+    {
+      "tag": "a",
+      "name": "Start with Today's list →",
+      "w": 133,
+      "h": 16
+    },
+    {
+      "tag": "button",
+      "name": "Refresh data",
+      "w": 40,
+      "h": 36
+    },
+    {
+      "tag": "button",
+      "name": "Fewer calls",
+      "w": 36,
+      "h": 36
+    },
+    {
+      "tag": "button",
+      "name": "More calls",
+      "w": 36,
+      "h": 36
+    },
+    {
+      "tag": "a",
+      "name": "Gupta Pharma Dist",
+      "w": 119,
+      "h": 20
+    },
+    {
+      "tag": "button",
+      "name": "Why this lane",
+      "w": 83,
+      "h": 17
+    },
+    {
+      "tag": "a",
+      "name": "Verma Pharma Dist",
+      "w": 121,
+      "h": 20
+    },
+    {
+      "tag": "button",
+      "name": "Why this lane",
+      "w": 83,
+      "h": 17
+    },
+    {
+      "tag": "a",
+      "name": "Singh FMCG Supplies",
+      "w": 132,
+      "h": 20
+    },
+    {
+      "tag": "button",
+      "name": "Why this lane",
+      "w": 83,
+      "h": 17
+    },
+    {
+      "tag": "a",
+      "name": "Agarwal Logistics",
+      "w": 110,
+      "h": 20
+    },
+    {
+      "tag": "button",
+      "name": "Why this lane",
+      "w": 83,
+      "h": 17
+    },
+    {
+      "tag": "a",
+      "name": "Trivedi Agencies",
+      "w": 103,
+      "h": 20
+    }
+  ]
+}

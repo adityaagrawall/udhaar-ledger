@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Download, RefreshCw, Plus, ChevronRight } from "lucide-react";
 import { downloadFile } from "@/lib/api";
@@ -25,23 +25,30 @@ export default function Navbar({
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const { canEdit } = useMe();
 
+  // Each page gets its own document title so screen-reader users and browser tabs can tell them apart (2.4.2).
+  useEffect(() => {
+    document.title = `${title} · Udhaar Ledger`;
+  }, [title]);
+
   return (
     <header className="min-h-16 bg-white/85 backdrop-blur-md border-b border-border px-5 md:px-8 py-2.5 flex items-center justify-between gap-4 sticky top-14 md:top-0 z-30">
       <div className="min-w-0">
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <nav aria-label="Breadcrumb" className="hidden sm:flex items-center gap-1 text-[11px] text-slate-400 mb-0.5">
+          <nav aria-label="Breadcrumb" className="hidden sm:block mb-0.5">
+            <ol className="flex items-center gap-1 text-[11px] text-slate-500">
             {breadcrumbs.map((b, i) => (
-              <span key={i} className="flex items-center gap-1">
+              <li key={i} className="flex items-center gap-1" aria-current={i === breadcrumbs.length - 1 ? "page" : undefined}>
                 {b.href ? (
-                  <Link href={b.href} className="hover:text-slate-600 transition-colors">
+                  <Link href={b.href} className="hover:text-slate-700 hover:underline transition-colors">
                     {b.label}
                   </Link>
                 ) : (
                   <span className={i === breadcrumbs.length - 1 ? "text-slate-600 font-medium" : ""}>{b.label}</span>
                 )}
-                {i < breadcrumbs.length - 1 && <ChevronRight className="w-3 h-3" />}
-              </span>
+                {i < breadcrumbs.length - 1 && <ChevronRight aria-hidden className="w-3 h-3" />}
+              </li>
             ))}
+            </ol>
           </nav>
         )}
         <h1 className="text-lg font-semibold text-ink-900 tracking-tight truncate leading-tight">{title}</h1>

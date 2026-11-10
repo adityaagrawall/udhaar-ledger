@@ -9,7 +9,7 @@ import ReminderModal from "@/components/ReminderModal";
 import InvoiceModal from "@/components/InvoiceModal";
 import FollowUpModal from "@/components/FollowUpModal";
 import { RiskBadge } from "@/components/Badge";
-import { useMe } from "@/components/Providers";
+import { useAnnounce, useMe } from "@/components/Providers";
 import {
   PageBody,
   Toolbar,
@@ -23,19 +23,21 @@ import {
 import { formatINR, formatDate, apiFetch, downloadFile } from "@/lib/api";
 
 function ScorePill({ score }: { score: number }) {
-  const tone =
+  const [tone, tier] =
     score >= 80
-      ? "bg-rose-50 text-rose-700 ring-rose-200"
+      ? ["bg-rose-50 text-rose-700 ring-rose-200", "high"]
       : score >= 60
-      ? "bg-accent-50 text-accent-700 ring-accent-200"
-      : "bg-brand-50 text-brand-700 ring-brand-200";
+      ? ["bg-accent-50 text-accent-700 ring-accent-200", "medium"]
+      : ["bg-brand-50 text-brand-700 ring-brand-200", "lower"];
   const pct = Math.min(100, (score / 115) * 100);
   return (
     <div className="w-16">
       <span className={`inline-flex px-2 py-0.5 rounded-md ring-1 ring-inset font-mono text-xs font-semibold ${tone}`}>
+        <span className="sr-only">Priority score </span>
         {score.toFixed(0)}
+        <span className="sr-only">, {tier} priority</span>
       </span>
-      <div className="mt-1.5 h-1 rounded-full bg-background overflow-hidden">
+      <div className="mt-1.5 h-1 rounded-full bg-background overflow-hidden" aria-hidden>
         <motion.div
           className="h-full bg-brand-500"
           initial={{ width: 0 }}
@@ -55,6 +57,7 @@ export default function QueuePage() {
   const perPage = 25;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const announce = useAnnounce();
 
   const [riskTier, setRiskTier] = useState("");
   const [minDays, setMinDays] = useState(0);
@@ -85,6 +88,7 @@ export default function QueuePage() {
       const data = await apiFetch<any>(url);
       setItems(data.items || []);
       setTotal(data.total || 0);
+      announce(`${(data.total || 0).toLocaleString("en-IN")} open invoices. Showing page ${page}.`);
     } catch (err: any) {
       setError(err.message || "Failed to load the queue");
     } finally {
@@ -120,11 +124,11 @@ export default function QueuePage() {
               <span className="tabular">{total.toLocaleString("en-IN")}</span> open invoices
             </h2>
             <p className="mt-1 text-sm text-slate-500 flex items-start gap-1.5 max-w-2xl">
-              <Info className="w-4 h-4 mt-0.5 text-slate-400 flex-shrink-0" />
+              <Info aria-hidden className="w-4 h-4 mt-0.5 text-slate-500 flex-shrink-0" />
               <span>
                 Invoice-level score: days overdue (up to 40) + amount (up to 30) + risk tier (up to 20) + broken promise (15) + no recent
                 contact (10). For the account-level daily list, use{" "}
-                <Link href="/today" className="font-semibold text-brand-600 hover:underline">
+                <Link href="/today" className="font-semibold text-brand-700 underline hover:no-underline">
                   Today
                 </Link>
                 .
@@ -135,7 +139,7 @@ export default function QueuePage() {
             onClick={() => downloadFile("/export/queue", "collection-queue.csv")}
             className="inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-white border border-border text-xs font-semibold text-ink-900 hover:bg-background whitespace-nowrap self-start md:self-auto"
           >
-            <Download className="w-4 h-4 text-slate-500" /> Export queue
+            <Download aria-hidden className="w-4 h-4 text-slate-500" /> Export queue
           </button>
         </div>
 
@@ -181,18 +185,19 @@ export default function QueuePage() {
         {error && <ErrorBanner message={error} onRetry={load} />}
 
         <div className="surface overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className={tbl.table}>
+          <div className="relative overflow-x-auto" role="region" aria-label="Open invoices, scrollable table" tabIndex={0}>
+            <table className={tbl.table} aria-busy={loading}>
+              <caption className="sr-only">Open invoices ranked by invoice-level priority score</caption>
               <thead className={tbl.thead}>
                 <tr>
-                  <th className={tbl.th}>Score</th>
-                  <th className={tbl.th}>Invoice</th>
-                  <th className={tbl.th}>Customer</th>
-                  <th className={`${tbl.th} text-right`}>Outstanding</th>
-                  <th className={tbl.th}>Aging</th>
-                  <th className={tbl.th}>Main driver</th>
-                  <th className={tbl.th}>Last contact</th>
-                  <th className={`${tbl.th} text-right`}>Actions</th>
+                  <th scope="col" className={tbl.th}>Score</th>
+                  <th scope="col" className={tbl.th}>Invoice</th>
+                  <th scope="col" className={tbl.th}>Customer</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Outstanding</th>
+                  <th scope="col" className={tbl.th}>Aging</th>
+                  <th scope="col" className={tbl.th}>Main driver</th>
+                  <th scope="col" className={tbl.th}>Last contact</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -201,7 +206,7 @@ export default function QueuePage() {
                 ) : items.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="py-16 text-center">
-                      <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto" />
+                      <CheckCircle2 aria-hidden className="w-8 h-8 text-emerald-600 mx-auto" />
                       <p className="mt-2 text-sm font-semibold text-ink-900">Nothing matches</p>
                       <p className="text-xs text-slate-500">No open invoices match these filters.</p>
                     </td>
@@ -221,20 +226,21 @@ export default function QueuePage() {
                       <td className={tbl.td}>
                         <button
                           onClick={() => setInvoiceId(item.invoice_id)}
-                          className="font-mono text-xs font-semibold text-brand-600 hover:text-brand-800 hover:underline whitespace-nowrap"
+                          className="font-mono text-xs font-semibold text-brand-700 hover:text-brand-800 underline hover:no-underline whitespace-nowrap py-2"
                         >
+                          <span className="sr-only">Open invoice </span>
                           {item.invoice_number}
                         </button>
                         {item.has_broken_promise && (
                           <span className="mt-1 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-rose-700">
-                            <AlertOctagon className="w-3 h-3" /> Broken promise
+                            <AlertOctagon aria-hidden className="w-3 h-3" /> Broken promise
                           </span>
                         )}
                       </td>
                       <td className={tbl.td}>
                         <Link
                           href={`/customers/${item.customer_id}`}
-                          className="font-semibold text-ink-900 hover:text-brand-600"
+                          className="font-semibold text-ink-900 hover:text-brand-700 hover:underline inline-flex items-center min-h-11 md:min-h-0"
                         >
                           {item.customer_name}
                         </Link>
@@ -272,10 +278,10 @@ export default function QueuePage() {
                                   outstanding_balance: item.outstanding_balance,
                                 })
                               }
-                              title="Log a call or promise to pay"
                               className="inline-flex items-center gap-1 h-8 px-2.5 rounded-lg bg-background hover:bg-brand-50 text-xs font-semibold text-ink-900 border border-border"
                             >
-                              <Handshake className="w-3.5 h-3.5" /> Log
+                              <Handshake aria-hidden className="w-3.5 h-3.5" /> Log
+                              <span className="sr-only"> a call or promise to pay for {item.customer_name}, invoice {item.invoice_number}</span>
                             </button>
                           )}
                           <button
@@ -292,10 +298,10 @@ export default function QueuePage() {
                                 open_follow_up_id: item.open_follow_up_id,
                               })
                             }
-                            title="Draft a reminder for review"
                             className="inline-flex items-center gap-1 h-8 px-2.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-xs font-semibold text-emerald-800 ring-1 ring-inset ring-emerald-200"
                           >
-                            <MessageCircle className="w-3.5 h-3.5" /> Remind
+                            <MessageCircle aria-hidden className="w-3.5 h-3.5" /> Remind
+                            <span className="sr-only"> {item.customer_name}, invoice {item.invoice_number}, draft for review</span>
                           </button>
                         </div>
                       </td>

@@ -33,8 +33,8 @@ const config: Config = {
           300: "#FCD34D",
           400: "#FBBF24",
           500: "#F59E0B",
-          600: "#D97706",
-          700: "#B45309",
+          600: "#B45309",
+          700: "#92400E",
         },
         ink: {
           DEFAULT: "#0B1330",
@@ -49,6 +49,18 @@ const config: Config = {
           hover: "#18234D",
           border: "#1C2751",
           muted: "#8E9BC7",
+        },
+        // Contrast-safe overrides (WCAG 1.4.3): the stock slate-400/500 and rose/emerald/amber-600
+        // fall below 4.5:1 on our tinted backgrounds. These keep the same hue, only darker.
+        slate: {
+          400: "#5F6D83",
+          500: "#4F5D73",
+        },
+        rose: {
+          600: "#BE123C",
+        },
+        emerald: {
+          600: "#047857",
         },
         border: {
           DEFAULT: "#E3E8F2",
