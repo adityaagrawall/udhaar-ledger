@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Modal, { ModalTitle } from "@/components/Modal";
 import { useEffect, useState } from "react";
 import {
   X,
@@ -65,21 +65,7 @@ export default function InvoiceModal({
     ) || 0;
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 sm:p-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.15 }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        className="bg-white rounded-3xl shadow-dropdown max-w-2xl w-full overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]"
-        initial={{ opacity: 0, y: 18, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-      >
+    <Modal onClose={onClose} className="bg-white rounded-3xl shadow-dropdown max-w-2xl w-full overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
         {/* Drawer Header */}
         <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-slate-50/70">
           <div className="flex items-center space-x-3 min-w-0">
@@ -88,9 +74,9 @@ export default function InvoiceModal({
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-slate-900 text-sm font-mono tracking-tight truncate">
+                <ModalTitle className="font-bold text-slate-900 text-sm font-mono tracking-tight truncate">
                   {invoice?.invoice_number || "Invoice Details"}
-                </h3>
+                </ModalTitle>
                 {invoice && <StatusBadge status={invoice.status} />}
               </div>
               <p className="text-xs text-slate-500 truncate mt-0.5">
@@ -196,9 +182,9 @@ export default function InvoiceModal({
                     <table className="w-full text-left text-xs">
                       <thead className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-semibold">
                         <tr>
-                          <th className="py-2.5 px-3.5">Allocation ID</th>
-                          <th className="py-2.5 px-3.5">Date Allocated</th>
-                          <th className="py-2.5 px-3.5 text-right">Amount Allocated</th>
+                          <th scope="col" className="py-2.5 px-3.5">Allocation ID</th>
+                          <th scope="col" className="py-2.5 px-3.5">Date Allocated</th>
+                          <th scope="col" className="py-2.5 px-3.5 text-right">Amount Allocated</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
@@ -260,7 +246,6 @@ export default function InvoiceModal({
             </button>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </Modal>
   );
 }

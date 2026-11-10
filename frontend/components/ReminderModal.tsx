@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Modal, { ModalTitle } from "@/components/Modal";
 import { useState, useEffect } from "react";
 import {
   X,
@@ -16,7 +16,7 @@ import {
   FileCheck2,
 } from "lucide-react";
 import { formatINR, apiFetch } from "@/lib/api";
-import { useMe } from "@/components/Providers";
+import { useAnnounce, useMe } from "@/components/Providers";
 
 interface ReminderModalProps {
   isOpen: boolean;
@@ -49,6 +49,7 @@ export default function ReminderModal({
   const [copied, setCopied] = useState<boolean>(false);
   const [approved, setApproved] = useState<boolean>(false);
   const { canEdit } = useMe();
+  const announce = useAnnounce();
   const [isApproving, setIsApproving] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -120,6 +121,7 @@ export default function ReminderModal({
 
   const handleCopy = () => {
     navigator.clipboard.writeText(draft);
+    announce("Draft copied to the clipboard");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -168,40 +170,26 @@ export default function ReminderModal({
   if (!isOpen || !invoice) return null;
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 sm:p-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.15 }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        className="bg-white rounded-3xl shadow-dropdown max-w-lg w-full overflow-hidden border border-slate-200 flex flex-col"
-        initial={{ opacity: 0, y: 18, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-      >
+    <Modal onClose={onClose} className="bg-white rounded-3xl shadow-dropdown max-w-lg w-full overflow-hidden border border-slate-200 flex flex-col">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-slate-50/70">
           <div className="flex items-center space-x-2.5">
             <div className="w-8 h-8 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600">
-              <Sparkles className="w-4 h-4" />
+              <Sparkles aria-hidden className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">Grounded Reminder Assistant</h3>
-              <p className="text-[11px] text-slate-500 font-mono">
+              <ModalTitle className="font-bold text-slate-900 text-sm">Grounded Reminder Assistant</ModalTitle>
+              <p className="text-[11px] text-slate-600 font-mono">
                 #{invoice.invoice_number} • {invoice.customer_name}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors"
-            aria-label="Close"
+            className="icon-only text-slate-500 hover:text-slate-700 p-2.5 -m-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+            aria-label="Close dialog"
           >
-            <X className="w-4 h-4" />
+            <X aria-hidden className="w-4 h-4" />
           </button>
         </div>
 
@@ -210,14 +198,14 @@ export default function ReminderModal({
           {/* Fact card */}
           <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80 flex items-center justify-between text-xs">
             <div>
-              <span className="text-slate-400 text-[10px] uppercase font-semibold">Outstanding</span>
+              <span className="text-slate-600 text-[11px] uppercase font-semibold">Outstanding</span>
               <span className="text-sm font-bold font-mono text-slate-900 block mt-0.5">
                 {formatINR(invoice.outstanding_balance)}
               </span>
             </div>
             <div className="text-right">
-              <span className="text-slate-400 text-[10px] uppercase font-semibold">Due Status</span>
-              <span className="text-xs font-semibold text-rose-600 block mt-0.5">
+              <span className="text-slate-600 text-[11px] uppercase font-semibold">Due status</span>
+              <span className="text-xs font-semibold text-rose-700 block mt-0.5">
                 {invoice.days_overdue}d overdue
               </span>
             </div>
@@ -225,13 +213,14 @@ export default function ReminderModal({
 
           {/* Delivery & Language selectors */}
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div>
-              <label className="text-[11px] font-semibold text-slate-700 block mb-1">
+            <div role="group" aria-labelledby="reminder-channel">
+              <span id="reminder-channel" className="text-xs font-semibold text-slate-700 block mb-1">
                 Channel
-              </label>
+              </span>
               <div className="grid grid-cols-2 gap-1 p-0.5 bg-slate-100 rounded-lg">
                 <button
                   type="button"
+                  aria-pressed={channel === "whatsapp"}
                   onClick={() => setChannel("whatsapp")}
                   className={`py-1.5 flex items-center justify-center space-x-1 rounded-md text-xs font-medium transition-colors ${
                     channel === "whatsapp"
@@ -239,11 +228,12 @@ export default function ReminderModal({
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <MessageSquare aria-hidden className="w-3.5 h-3.5" />
                   <span>WhatsApp</span>
                 </button>
                 <button
                   type="button"
+                  aria-pressed={channel === "sms"}
                   onClick={() => setChannel("sms")}
                   className={`py-1.5 flex items-center justify-center space-x-1 rounded-md text-xs font-medium transition-colors ${
                     channel === "sms"
@@ -251,19 +241,20 @@ export default function ReminderModal({
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  <Smartphone className="w-3.5 h-3.5" />
+                  <Smartphone aria-hidden className="w-3.5 h-3.5" />
                   <span>SMS</span>
                 </button>
               </div>
             </div>
 
-            <div>
-              <label className="text-[11px] font-semibold text-slate-700 block mb-1">
+            <div role="group" aria-labelledby="reminder-language">
+              <span id="reminder-language" className="text-xs font-semibold text-slate-700 block mb-1">
                 Language
-              </label>
+              </span>
               <div className="grid grid-cols-2 gap-1 p-0.5 bg-slate-100 rounded-lg">
                 <button
                   type="button"
+                  aria-pressed={language === "english"}
                   onClick={() => setLanguage("english")}
                   className={`py-1.5 rounded-md text-xs font-medium transition-colors ${
                     language === "english"
@@ -275,6 +266,8 @@ export default function ReminderModal({
                 </button>
                 <button
                   type="button"
+                  aria-pressed={language === "hindi"}
+                  lang="hi"
                   onClick={() => setLanguage("hindi")}
                   className={`py-1.5 rounded-md text-xs font-medium transition-colors ${
                     language === "hindi"
@@ -292,15 +285,20 @@ export default function ReminderModal({
           {channel === "whatsapp" && (
             <div className="p-3 bg-emerald-50/70 border border-emerald-200/80 rounded-xl space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-emerald-950 flex items-center gap-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+                  <MessageSquare aria-hidden className="w-3.5 h-3.5 text-emerald-600" />
                   Direct WhatsApp Dispatch (wa.me)
                 </span>
-                <span className="text-[10px] text-emerald-700">Official Click-to-Chat</span>
+                <span className="text-[11px] text-emerald-800">Official Click-to-Chat</span>
               </div>
               <div className="flex items-center gap-2">
+                <label htmlFor="reminder-phone" className="sr-only">
+                  Customer phone number
+                </label>
                 <input
+                  id="reminder-phone"
                   type="tel"
+                  autoComplete="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 98765 43210"
@@ -310,9 +308,9 @@ export default function ReminderModal({
                   type="button"
                   onClick={handleOpenWhatsApp}
                   disabled={!draft.trim() || !phone.trim()}
-                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-card transition-all disabled:opacity-50"
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold shadow-card transition-all disabled:opacity-50"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <MessageSquare aria-hidden className="w-3.5 h-3.5" />
                   <span>Launch WhatsApp</span>
                 </button>
               </div>
@@ -322,29 +320,33 @@ export default function ReminderModal({
           {/* Draft text area */}
           <div>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[11px] font-semibold text-slate-700">Editable Message Draft</span>
+              <label htmlFor="reminder-draft" className="text-xs font-semibold text-slate-700">Editable message draft</label>
               <button
                 type="button"
                 onClick={handleCopy}
-                className="text-xs text-brand-600 hover:text-brand-800 flex items-center gap-1 font-medium transition-colors"
+                className="text-xs text-brand-700 hover:text-brand-800 flex items-center gap-1 font-medium transition-colors"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check aria-hidden className="w-3.5 h-3.5 text-emerald-600" /> : <Copy aria-hidden className="w-3.5 h-3.5" />}
                 <span>{copied ? "Copied" : "Copy"}</span>
               </button>
             </div>
             <div className="relative">
               <textarea
+                id="reminder-draft"
+                data-autofocus
+                lang={language === "hindi" ? "hi" : "en"}
+                aria-busy={isLoading}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 rows={5}
                 className="w-full text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all leading-relaxed"
-                placeholder="Drafting message..."
-                disabled={isLoading}
+                placeholder="Drafting message…"
+                readOnly={isLoading}
               />
               {isLoading && (
-                <div className="absolute inset-0 bg-white/70 backdrop-blur-[1px] flex items-center justify-center rounded-xl text-xs text-slate-600 font-medium">
+                <div role="status" className="absolute inset-0 bg-white/70 backdrop-blur-[1px] flex items-center justify-center rounded-xl text-xs text-slate-600 font-medium">
                   <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full mr-2" />
-                  Generating grounded draft...
+                  Generating grounded draft…
                 </div>
               )}
             </div>
@@ -353,21 +355,21 @@ export default function ReminderModal({
           {/* Safety Notice & Approval Checkbox */}
           <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-xs space-y-2">
             <div className="flex items-start space-x-2">
-              <ShieldCheck className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
-              <div className="text-[11px] text-amber-900">
-                <span className="font-semibold block">Human Review Required</span>
+              <ShieldCheck aria-hidden className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="text-xs text-amber-900">
+                <span className="font-semibold block">Human review required</span>
                 Facts and amounts are grounded in verified invoice records. Reminders are recorded only after human approval.
               </div>
             </div>
 
-            <label className="flex items-center space-x-2 pt-1.5 border-t border-amber-200/60 cursor-pointer">
+            <label className="flex items-center gap-3 pt-1.5 min-h-11 border-t border-amber-200/60 cursor-pointer">
               <input
                 type="checkbox"
                 checked={approved}
                 onChange={(e) => setApproved(e.target.checked)}
-                className="w-4 h-4 text-brand-500 rounded border-slate-300 focus:ring-brand-500 cursor-pointer"
+                className="w-5 h-5 flex-shrink-0 text-brand-600 rounded border-slate-400 focus:ring-brand-500 cursor-pointer"
               />
-              <span className="text-[11px] font-medium text-slate-800 select-none">
+              <span className="text-xs font-medium text-slate-800">
                 I verify the amounts and approve recording this follow-up
               </span>
             </label>
@@ -375,14 +377,14 @@ export default function ReminderModal({
 
           {/* Feedback messages */}
           {successMessage && (
-            <div className="p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <div role="status" className="p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs flex items-center gap-2">
+              <CheckCircle2 aria-hidden className="w-4 h-4 text-emerald-600 flex-shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
           {errorMessage && (
-            <div className="p-2.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+            <div role="alert" className="p-2.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs flex items-center gap-2">
+              <AlertCircle aria-hidden className="w-4 h-4 text-rose-600 flex-shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -393,13 +395,13 @@ export default function ReminderModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+            className="px-3.5 py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
           >
             Cancel
           </button>
 
           {!canEdit ? (
-            <span className="text-[11px] text-slate-500">Read-only access: you can copy the draft, but not log it.</span>
+            <span className="text-xs text-slate-600">Read-only access: you can copy the draft, but not log it.</span>
           ) : (
           <button
             type="button"
@@ -407,12 +409,11 @@ export default function ReminderModal({
             disabled={!approved || isApproving || !draft.trim()}
             className="flex items-center space-x-1.5 px-4 py-2 bg-brand-500 hover:bg-brand-600 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-lg text-xs font-semibold shadow-sm transition-all disabled:cursor-not-allowed"
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send aria-hidden className="w-3.5 h-3.5" />
             <span>{isApproving ? "Logging..." : "Approve & Mark Contacted"}</span>
           </button>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </Modal>
   );
 }

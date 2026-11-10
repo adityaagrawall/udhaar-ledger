@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Modal, { ModalTitle } from "@/components/Modal";
 import { useState, useEffect } from "react";
 import {
   X,
@@ -118,21 +118,7 @@ export default function FollowUpModal({
   if (!isOpen || !invoice) return null;
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 sm:p-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.15 }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        className="bg-white rounded-3xl shadow-dropdown max-w-lg w-full border border-slate-200 overflow-hidden flex flex-col"
-        initial={{ opacity: 0, y: 18, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-      >
+    <Modal onClose={onClose} className="bg-white rounded-3xl shadow-dropdown max-w-lg w-full border border-slate-200 overflow-hidden flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-slate-50/70">
           <div className="flex items-center space-x-3">
@@ -140,7 +126,7 @@ export default function FollowUpModal({
               <PhoneCall className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">Log Collection Follow-up</h3>
+              <ModalTitle className="font-bold text-slate-900 text-sm">Log Collection Follow-up</ModalTitle>
               <p className="text-[11px] text-slate-500 font-mono">
                 #{invoice.invoice_number} • {invoice.customer_name}
               </p>
@@ -310,7 +296,6 @@ export default function FollowUpModal({
             </button>
           </div>
         </form>
-      </motion.div>
-    </motion.div>
+      </Modal>
   );
 }
