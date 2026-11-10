@@ -319,12 +319,12 @@ export default function CustomerDetailPage() {
                 <table className={tbl.table}>
                   <thead className={tbl.thead}>
                     <tr>
-                      <th className={tbl.th}>Invoice</th>
-                      <th className={tbl.th}>Due</th>
-                      <th className={`${tbl.th} text-right`}>Total</th>
-                      <th className={`${tbl.th} text-right`}>Paid</th>
-                      <th className={`${tbl.th} text-right`}>Balance</th>
-                      <th className={`${tbl.th} text-right`}>Actions</th>
+                      <th scope="col" className={tbl.th}>Invoice</th>
+                      <th scope="col" className={tbl.th}>Due</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Total</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Paid</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Balance</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -400,11 +400,11 @@ export default function CustomerDetailPage() {
                 <table className={tbl.table}>
                   <thead className={tbl.thead}>
                     <tr>
-                      <th className={tbl.th}>Date</th>
-                      <th className={tbl.th}>Entry</th>
-                      <th className={`${tbl.th} text-right`}>Debit</th>
-                      <th className={`${tbl.th} text-right`}>Credit</th>
-                      <th className={`${tbl.th} text-right`}>Running balance</th>
+                      <th scope="col" className={tbl.th}>Date</th>
+                      <th scope="col" className={tbl.th}>Entry</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Debit</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Credit</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Running balance</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -449,13 +449,13 @@ export default function CustomerDetailPage() {
                 <table className={tbl.table}>
                   <thead className={tbl.thead}>
                     <tr>
-                      <th className={tbl.th}>Invoice</th>
-                      <th className={tbl.th}>Promised for</th>
-                      <th className={`${tbl.th} text-right`}>Amount</th>
-                      <th className={tbl.th}>Status</th>
-                      <th className={tbl.th}>Channel</th>
-                      <th className={tbl.th}>Notes</th>
-                      <th className={tbl.th}>Logged</th>
+                      <th scope="col" className={tbl.th}>Invoice</th>
+                      <th scope="col" className={tbl.th}>Promised for</th>
+                      <th scope="col" className={`${tbl.th} text-right`}>Amount</th>
+                      <th scope="col" className={tbl.th}>Status</th>
+                      <th scope="col" className={tbl.th}>Channel</th>
+                      <th scope="col" className={tbl.th}>Notes</th>
+                      <th scope="col" className={tbl.th}>Logged</th>
                     </tr>
                   </thead>
                   <tbody>

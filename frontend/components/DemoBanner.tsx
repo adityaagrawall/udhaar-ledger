@@ -9,7 +9,7 @@ export default function DemoBanner() {
   const { me } = useMe();
   if (!me || me.role !== "viewer") return null;
   return (
-    <div className="bg-ink-900 text-white text-xs">
+    <div className="on-dark bg-ink-900 text-white text-xs">
       <div className="max-w-[1400px] mx-auto px-5 md:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
         <span className="flex items-start gap-2">
           <Eye className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-accent-300" />
@@ -25,7 +25,7 @@ export default function DemoBanner() {
           </span>
         </span>
         {me.is_demo && (
-          <Link href="/today" className="font-semibold text-accent-300 hover:text-accent-200 whitespace-nowrap">
+          <Link href="/today" className="font-semibold text-accent-300 hover:text-accent-200 whitespace-nowrap inline-flex items-center min-h-11 md:min-h-0">
             Start with Today&apos;s list →
           </Link>
         )}

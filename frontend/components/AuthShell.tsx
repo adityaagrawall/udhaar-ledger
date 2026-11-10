@@ -13,14 +13,14 @@ const POINTS = [
 export default function AuthShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen w-full grid lg:grid-cols-[1.05fr_1fr]">
-      <div className="relative hidden lg:flex flex-col justify-between p-12 bg-hero-ink text-white overflow-hidden">
+      <div className="on-dark relative hidden lg:flex flex-col justify-between p-12 bg-hero-ink text-white overflow-hidden">
         <div className="absolute inset-0 bg-ledger-grid [background-size:36px_36px] opacity-60" aria-hidden />
         <div className="absolute -bottom-40 -left-24 w-[520px] h-[520px] rounded-full bg-accent-400/10 blur-3xl" aria-hidden />
         <div className="relative">
           <Logo size={40} tagline />
         </div>
         <div className="relative max-w-lg">
-          <motion.h2
+          <motion.p
             className="text-4xl font-semibold tracking-tight leading-[1.15]"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
             Chase the right retailer,
             <br />
             <span className="text-accent-400">not the biggest balance.</span>
-          </motion.h2>
+          </motion.p>
           <ul className="mt-10 space-y-6">
             {POINTS.map((p, i) => (
               <motion.li
@@ -50,7 +50,7 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
             ))}
           </ul>
         </div>
-        <p className="relative text-xs text-brand-200/60">Built for Indian distributors and wholesalers.</p>
+        <p className="relative text-xs text-brand-200/80">Built for Indian distributors and wholesalers.</p>
       </div>
 
       <div className="flex items-center justify-center p-6 sm:p-10 bg-background">

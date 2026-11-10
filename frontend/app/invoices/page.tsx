@@ -112,14 +112,14 @@ export default function InvoicesPage() {
             <table className={tbl.table}>
               <thead className={tbl.thead}>
                 <tr>
-                  <th className={tbl.th}>Invoice</th>
-                  <th className={tbl.th}>Customer</th>
-                  <th className={tbl.th}>Issued</th>
-                  <th className={tbl.th}>Due</th>
-                  <th className={`${tbl.th} text-right`}>Total</th>
-                  <th className={`${tbl.th} text-right`}>Balance</th>
-                  <th className={tbl.th}>Status</th>
-                  <th className={`${tbl.th} text-right`}></th>
+                  <th scope="col" className={tbl.th}>Invoice</th>
+                  <th scope="col" className={tbl.th}>Customer</th>
+                  <th scope="col" className={tbl.th}>Issued</th>
+                  <th scope="col" className={tbl.th}>Due</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Total</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Balance</th>
+                  <th scope="col" className={tbl.th}>Status</th>
+                  <th scope="col" className={`${tbl.th} text-right`}></th>
                 </tr>
               </thead>
               <tbody>

@@ -400,12 +400,12 @@ export default function ImportPage() {
             <table className={tbl.table}>
               <thead className={tbl.thead}>
                 <tr>
-                  <th className={tbl.th}>File</th>
-                  <th className={tbl.th}>Status</th>
-                  <th className={`${tbl.th} text-right`}>Rows</th>
-                  <th className={`${tbl.th} text-right`}>Imported</th>
-                  <th className={`${tbl.th} text-right`}>Skipped</th>
-                  <th className={tbl.th}>When</th>
+                  <th scope="col" className={tbl.th}>File</th>
+                  <th scope="col" className={tbl.th}>Status</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Rows</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Imported</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Skipped</th>
+                  <th scope="col" className={tbl.th}>When</th>
                 </tr>
               </thead>
               <tbody>

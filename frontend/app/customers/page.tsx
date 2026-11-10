@@ -132,14 +132,14 @@ export default function CustomersPage() {
             <table className={tbl.table}>
               <thead className={tbl.thead}>
                 <tr>
-                  <th className={tbl.th}>Customer</th>
-                  <th className={tbl.th}>GSTIN</th>
-                  <th className={tbl.th}>Terms</th>
-                  <th className={tbl.th}>Credit used</th>
-                  <th className={`${tbl.th} text-right`}>Outstanding</th>
-                  <th className={`${tbl.th} text-right`}>Overdue</th>
-                  <th className={tbl.th}>Risk</th>
-                  <th className={tbl.th}></th>
+                  <th scope="col" className={tbl.th}>Customer</th>
+                  <th scope="col" className={tbl.th}>GSTIN</th>
+                  <th scope="col" className={tbl.th}>Terms</th>
+                  <th scope="col" className={tbl.th}>Credit used</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Outstanding</th>
+                  <th scope="col" className={`${tbl.th} text-right`}>Overdue</th>
+                  <th scope="col" className={tbl.th}>Risk</th>
+                  <th scope="col" className={tbl.th}></th>
                 </tr>
               </thead>
               <tbody>

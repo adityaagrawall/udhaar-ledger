@@ -21,6 +21,11 @@
     color: #0b1330;
   }
 
+  html {
+    /* Sticky headers must not cover the element that just received keyboard focus (2.4.11). */
+    scroll-padding-top: 6rem;
+  }
+
   :focus-visible {
     outline: 2px solid #3b5cdb;
     outline-offset: 2px;
@@ -61,4 +66,79 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #8e9bc7;
+}
+
+/* ---------- Accessibility ---------- */
+
+/* Keyboard focus is always visible. Utilities such as `focus:outline-none` on form controls would
+   otherwise leave only a faint ring, so the outline is forced here. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #2b49bd !important;
+  outline-offset: 2px !important;
+}
+/* On the dark sidebar and banners the indigo outline is too dim; use saffron (12:1 on the ink background). */
+.on-dark a:focus-visible,
+.on-dark button:focus-visible,
+a.on-dark:focus-visible,
+button.on-dark:focus-visible {
+  outline-color: #fcd34d !important;
+}
+/* Programmatic focus targets (skip link destination, dialogs) do not need a ring. */
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #0b1330;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Touch targets: at phone widths every control is at least 44x44 CSS px (2.5.5). Inline text links
+   inside sentences are exempt; standalone links get padding where they are used. */
+@media (max-width: 767px) {
+  button:not(.touch-auto),
+  [role="button"],
+  [role="radio"],
+  summary,
+  select {
+    min-height: 44px;
+  }
+  button[aria-label]:not(.touch-auto),
+  button.icon-only {
+    min-width: 44px;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]) {
+    min-height: 44px;
+  }
+}
+
+/* Respect the operating-system "reduce motion" setting for everything that is not Framer Motion
+   (which is handled by <MotionConfig reducedMotion="user">). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

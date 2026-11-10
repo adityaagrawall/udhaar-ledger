@@ -1,7 +1,16 @@
 import React from "react";
 
 /** Udhaar Ledger mark: a "U" that doubles as an open ledger page, with a saffron tick for a cleared account. */
-export function LogoMark({ size = 32, className = "" }: { size?: number; className?: string }) {
+export function LogoMark({
+  size = 32,
+  className = "",
+  decorative = false,
+}: {
+  size?: number;
+  className?: string;
+  /** Hide from assistive tech when the wordmark next to it already carries the name. */
+  decorative?: boolean;
+}) {
   const id = React.useId().replace(/:/g, "");
   return (
     <svg
@@ -9,8 +18,8 @@ export function LogoMark({ size = 32, className = "" }: { size?: number; classNa
       height={size}
       viewBox="0 0 64 64"
       fill="none"
-      role="img"
-      aria-label="Udhaar Ledger"
+      {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": "Udhaar Ledger" })}
+      focusable="false"
       className={className}
     >
       <defs>
@@ -43,12 +52,13 @@ export default function Logo({
 }) {
   const text = tone === "light" ? "text-white" : "text-ink-900";
   const sub = tone === "light" ? "text-brand-200/80" : "text-slate-500";
+  const accent = tone === "light" ? "text-accent-400" : "text-accent-700";
   return (
     <span className="inline-flex items-center gap-2.5">
-      <LogoMark size={size} />
+      <LogoMark size={size} decorative />
       <span className="leading-none">
         <span className={`block font-semibold tracking-tight ${text}`} style={{ fontSize: size * 0.5 }}>
-          Udhaar <span className="text-accent-400">Ledger</span>
+          Udhaar <span className={accent}>Ledger</span>
         </span>
         {tagline && (
           <span className={`block mt-1 text-[10px] uppercase tracking-[0.14em] ${sub}`}>Decision layer for credit</span>
