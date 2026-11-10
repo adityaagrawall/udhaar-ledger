@@ -1,0 +1,14 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 1,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Today",
+      "w": 38,
+      "h": 17
+    }
+  ]
+}

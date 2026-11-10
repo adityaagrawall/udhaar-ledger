@@ -1,0 +1,62 @@
+{
+  "viewportWidth": 1280,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 9,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Udhaar LedgerDecision layer for credit",
+      "w": 206,
+      "h": 41
+    },
+    {
+      "tag": "a",
+      "name": "Start with Today's list →",
+      "w": 133,
+      "h": 16
+    },
+    {
+      "tag": "button",
+      "name": "Refresh data",
+      "w": 88,
+      "h": 36
+    },
+    {
+      "tag": "button",
+      "name": "Export",
+      "w": 82,
+      "h": 36
+    },
+    {
+      "tag": "a",
+      "name": "Open today's list",
+      "w": 163,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Gupta Pharma Dist",
+      "w": 119,
+      "h": 20
+    },
+    {
+      "tag": "a",
+      "name": "Verma Pharma Dist",
+      "w": 121,
+      "h": 20
+    },
+    {
+      "tag": "a",
+      "name": "Singh FMCG Supplies",
+      "w": 132,
+      "h": 20
+    },
+    {
+      "tag": "a",
+      "name": "Analytics",
+      "w": 65,
+      "h": 16
+    }
+  ]
+}

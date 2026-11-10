@@ -1,0 +1,38 @@
+{
+  "viewportWidth": 375,
+  "documentOverflowPx": 0,
+  "mainOverflowPx": 0,
+  "targetsUnder44px": 5,
+  "targetsUnder44pxSample": [
+    {
+      "tag": "a",
+      "name": "Open today's list",
+      "w": 163,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "name": "Gupta Pharma Dist",
+      "w": 119,
+      "h": 20
+    },
+    {
+      "tag": "a",
+      "name": "Verma Pharma Dist",
+      "w": 121,
+      "h": 20
+    },
+    {
+      "tag": "a",
+      "name": "Singh FMCG Supplies",
+      "w": 132,
+      "h": 20
+    },
+    {
+      "tag": "a",
+      "name": "Analytics",
+      "w": 65,
+      "h": 16
+    }
+  ]
+}

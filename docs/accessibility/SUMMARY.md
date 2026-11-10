@@ -10,21 +10,21 @@ Tools: Lighthouse 13.6.0, axe-core 4.14.0, Playwright 1.65.0, Chromium 151.0.792
 
 | Page / state | Width | Lighthouse before | Lighthouse after | axe before (rules/elements) | axe after (rules/elements) |
 |---|---|---|---|---|---|
-| Account detail | 1280px | 96 (2 failed) | not run | 2 / 10 | not run |
-| Account detail | 375px | 96 (1 failed) | not run | 1 / 7 | not run |
-| Demo login | 1280px | 96 (1 failed) | not run | 1 / 2 | not run |
-| Demo login | 375px | 96 (1 failed) | not run | 1 / 3 | not run |
-| Mobile navigation drawer open | 375px | n/a | not run | 1 / 3 | not run |
-| Landing (Overview) | 1280px | 96 (2 failed) | not run | 2 / 13 | not run |
-| Landing (Overview) | 375px | 96 (1 failed) | not run | 1 / 11 | not run |
-| Invoice queue (reminders) | 1280px | 96 (2 failed) | not run | 2 / 29 | not run |
-| Invoice queue (reminders) | 375px | 96 (1 failed) | not run | 1 / 1 | not run |
-| Reminder approval dialog | 1280px | n/a | not run | 2 / 33 | not run |
-| Reminder approval dialog | 375px | n/a | not run | 1 / 5 | not run |
-| Daily call list | 1280px | 96 (2 failed) | not run | 2 / 6 | not run |
-| Daily call list | 375px | 96 (1 failed) | not run | 1 / 3 | not run |
-| Daily list, 'Why this lane' expanded | 1280px | n/a | not run | 2 / 6 | not run |
-| Daily list, 'Why this lane' expanded | 375px | n/a | not run | 1 / 3 | not run |
+| Account detail | 1280px | 96 (2 failed) | 100 (0 failed) | 2 / 10 | 0 / 0 |
+| Account detail | 375px | 96 (1 failed) | 100 (0 failed) | 1 / 7 | 0 / 0 |
+| Demo login | 1280px | 96 (1 failed) | 100 (0 failed) | 1 / 2 | 0 / 0 |
+| Demo login | 375px | 96 (1 failed) | 100 (0 failed) | 1 / 3 | 0 / 0 |
+| Mobile navigation drawer open | 375px | n/a | n/a | 1 / 3 | 0 / 0 |
+| Landing (Overview) | 1280px | 96 (2 failed) | 100 (0 failed) | 2 / 13 | 0 / 0 |
+| Landing (Overview) | 375px | 96 (1 failed) | 100 (0 failed) | 1 / 11 | 0 / 0 |
+| Invoice queue (reminders) | 1280px | 96 (2 failed) | 100 (0 failed) | 2 / 29 | 0 / 0 |
+| Invoice queue (reminders) | 375px | 96 (1 failed) | 100 (0 failed) | 1 / 1 | 0 / 0 |
+| Reminder approval dialog | 1280px | n/a | n/a | 2 / 33 | 0 / 0 |
+| Reminder approval dialog | 375px | n/a | n/a | 1 / 5 | 0 / 0 |
+| Daily call list | 1280px | 96 (2 failed) | 100 (0 failed) | 2 / 6 | 0 / 0 |
+| Daily call list | 375px | 96 (1 failed) | 100 (0 failed) | 1 / 3 | 0 / 0 |
+| Daily list, 'Why this lane' expanded | 1280px | n/a | n/a | 2 / 6 | 0 / 0 |
+| Daily list, 'Why this lane' expanded | 375px | n/a | n/a | 1 / 3 | 0 / 0 |
 
 ## Before: axe violations by severity
 
@@ -48,6 +48,28 @@ Cells are `rules/elements` for critical · serious · moderate · minor.
 | Daily list, 'Why this lane' expanded | 1280px | 0/0 · 2/6 · 0/0 · 0/0 | color-contrast (serious, 5), label-content-name-mismatch (serious, 1) |
 | Daily list, 'Why this lane' expanded | 375px | 0/0 · 1/3 · 0/0 · 0/0 | color-contrast (serious, 3) |
 
+## After: axe violations by severity
+
+Cells are `rules/elements` for critical · serious · moderate · minor.
+
+| Page / state | Width | critical · serious · moderate · minor | Rules hit |
+|---|---|---|---|
+| Account detail | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Account detail | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Demo login | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Demo login | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Mobile navigation drawer open | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Landing (Overview) | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Landing (Overview) | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Invoice queue (reminders) | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Invoice queue (reminders) | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Reminder approval dialog | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Reminder approval dialog | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Daily call list | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Daily call list | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Daily list, 'Why this lane' expanded | 1280px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+| Daily list, 'Why this lane' expanded | 375px | 0/0 · 0/0 · 0/0 · 0/0 | none |
+
 ## Before: layout checks (custom script)
 
 `Doc overflow` is the document's horizontal overflow in CSS px (0 means none). `Targets < 44px` counts visible links, buttons and form controls under 44x44 CSS px at that width.
@@ -69,6 +91,37 @@ Cells are `rules/elements` for critical · serious · moderate · minor.
 | Daily call list | 375px | 0 | 243 |
 | Daily list, 'Why this lane' expanded | 1280px | 0 | 251 |
 | Daily list, 'Why this lane' expanded | 375px | 0 | 243 |
+
+Reflow (document horizontal overflow in px; 640px viewport is the same layout width as 200% zoom on a 1280px screen):
+
+| Page | 640px | 375px | 320px |
+|---|---|---|---|
+| overview | 0 | 0 | 0 |
+| today | 0 | 0 | 0 |
+| account | 0 | 0 | 0 |
+| queue | 0 | 0 | 0 |
+
+## After: layout checks (custom script)
+
+`Doc overflow` is the document's horizontal overflow in CSS px (0 means none). `Targets < 44px` counts visible links, buttons and form controls under 44x44 CSS px at that width.
+
+| Page / state | Width | Doc overflow px | Targets < 44px |
+|---|---|---|---|
+| Account detail | 1280px | 0 | 10 |
+| Account detail | 375px | 0 | 0 |
+| Demo login | 1280px | 0 | 5 |
+| Demo login | 375px | 0 | 2 |
+| Mobile navigation drawer open | 375px | 0 | 1 |
+| Landing (Overview) | 1280px | 0 | 9 |
+| Landing (Overview) | 375px | 0 | 5 |
+| Invoice queue (reminders) | 1280px | 0 | 87 |
+| Invoice queue (reminders) | 375px | 0 | 1 |
+| Reminder approval dialog | 1280px | 0 | 97 |
+| Reminder approval dialog | 375px | 0 | 2 |
+| Daily call list | 1280px | 0 | 243 |
+| Daily call list | 375px | 0 | 1 |
+| Daily list, 'Why this lane' expanded | 1280px | 0 | 243 |
+| Daily list, 'Why this lane' expanded | 375px | 0 | 1 |
 
 Reflow (document horizontal overflow in px; 640px viewport is the same layout width as 200% zoom on a 1280px screen):
 
