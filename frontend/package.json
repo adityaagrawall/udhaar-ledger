@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "a11y:audit": "node a11y/audit.mjs",
-    "a11y:summary": "node a11y/summarize.mjs"
+    "a11y:summary": "node a11y/summarize.mjs",
+    "test:a11y": "playwright test"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.39.8",
