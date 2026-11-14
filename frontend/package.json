@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.39.8",
+    "@clerk/nextjs": "^6.39.9",
     "clsx": "^2.1.1",
-    "framer-motion": "^14.10.1",
-    "lucide-react": "^1.63.0",
+    "framer-motion": "^14.12.0",
+    "lucide-react": "^1.72.0",
     "next": "^15.5.29",
     "react": "^18",
     "react-dom": "^18",
