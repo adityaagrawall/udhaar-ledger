@@ -9,14 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.39.8",
+    "@clerk/nextjs": "^6.39.9",
     "clsx": "^2.1.1",
-    "framer-motion": "^14.10.1",
-    "lucide-react": "^1.63.0",
+    "framer-motion": "^14.14.0",
+    "lucide-react": "^1.75.0",
     "next": "^15.5.29",
     "react": "^18",
     "react-dom": "^18",
-    "recharts": "^3.10.1",
+    "recharts": "^3.11.0",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "^15.5.29",
-    "postcss": "^8.5.32",
+    "postcss": "^8.5.33",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
